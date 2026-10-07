@@ -1,16 +1,3 @@
-"""
-TP01 - Python Web Scraping
-Case-study: scrape an educational website and save the data to a CSV file.
-
-Website: https://shamela.ws  (the Arabic "Shamela" library - educational books)
-Book:    https://shamela.ws/book/28172   "نسب معد واليمن الكبير" - ابن الكلبي
-
-The book is split into numbered pages: https://shamela.ws/book/28172/<n>
-We fetch every page, keep the text of every paragraph, and save everything
-to a CSV file with pandas (more than 1,000 rows).
-
-Run:  python shamela_scraper.py
-"""
 import re
 from concurrent.futures import ThreadPoolExecutor
 
@@ -21,7 +8,7 @@ from bs4 import BeautifulSoup
 BOOK_ID = 28172
 LAST_PAGE = 720  # the highest page number of this book
 BASE_URL = f"https://shamela.ws/book/{BOOK_ID}"
-HEADERS = {"User-Agent": "Mozilla/5.0 (educational scraping - TP01)"}
+HEADERS = {"User-Agent": "Mozilla/5.0"}
 
 
 def fetch_html(number: int) -> tuple[int, str | None]:
