@@ -32,7 +32,7 @@ import pandas as pd
 import psutil
 
 BASE_DIR = Path(__file__).parent
-DATA_FILE = BASE_DIR / "data" / "sales_big.csv"
+DATA_FILE = BASE_DIR / "data" / "sales_6gb.csv"
 REPORT_DIR = BASE_DIR / "report"
 CHUNK_SIZE = 100_000
 NUMERIC_COLUMNS = ["quantity", "unit_price", "total_amount"]
@@ -154,7 +154,8 @@ def task1_oom():
     print(f"\n[TASK 1] pd.read_csv() on a {size_gb:.2f} GB file")
     print(f"[TASK 1] memory capped at {TASK1_MEMORY_LIMIT_GB} GB to force the OOM")
 
-    command = [sys.executable, str(Path(__file__).resolve()), "--task1-worker"]
+    command = [sys.executable, str(Path(__file__).resolve()),
+               "--task1-worker", "--data", str(DATA_FILE)]
     process = subprocess.Popen(command, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, text=True, encoding="utf-8")
     if sys.platform == "win32":
@@ -293,7 +294,8 @@ def build_report(results):
     _bar_chart(axes[0], results, "peak_mb", "Peak RAM usage", colors,
                transform=lambda v: v / 1024, label="GB")
     _bar_chart(axes[1], results, "seconds", "Execution time", colors, label="seconds")
-    fig.suptitle("TP02 - Big Data Files: Pandas vs Chunking vs Dask", fontweight="bold")
+    fig.suptitle(f"TP02 - {DATA_FILE.name} ({DATA_FILE.stat().st_size/1024**3:.1f} GB): "
+                 f"Pandas vs Chunking vs Dask", fontweight="bold")
     fig.tight_layout()
     fig.savefig(REPORT_DIR / "benchmark.png", dpi=130)
     plt.close(fig)
@@ -347,10 +349,18 @@ border:1px solid #22303f;margin:10px 0;background:#fff}}
 
 # =====================================================================
 def main():
+    global DATA_FILE, REPORT_DIR
     parser = argparse.ArgumentParser(description="TP02 solver")
+    parser.add_argument("--data", default=str(DATA_FILE),
+                        help="CSV file to process")
+    parser.add_argument("--report", default=str(REPORT_DIR),
+                        help="folder for the report output")
     parser.add_argument("--task1-worker", action="store_true",
                         help="internal: read the file with pd.read_csv (may OOM)")
     args = parser.parse_args()
+
+    DATA_FILE = Path(args.data)
+    REPORT_DIR = Path(args.report)
 
     if args.task1_worker:
         dataframe = pd.read_csv(DATA_FILE)

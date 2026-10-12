@@ -10,7 +10,7 @@ border:1px solid #22303f;margin:10px 0;background:#fff}
 <h1>TP02 - How to Work with Big Data Files (+5GB)</h1>
 <p class="mem">Method comparison: standard Pandas vs Pandas chunking vs Dask DataFrame.</p>
 <table><tr><th>Method</th><th>Status</th><th>Peak RAM</th><th>Execution time</th></tr>
-<tr><td>Standard Pandas (read_csv)</td><td>MemoryError (OOM)</td><td>5.64 GB</td><td>43.0 s</td></tr><tr><td>Pandas Chunking</td><td>OK (constant memory)</td><td>0.19 GB</td><td>163.5 s</td></tr><tr><td>Dask DataFrame</td><td>OK (parallel)</td><td>3.76 GB</td><td>119.7 s</td></tr></table>
+<tr><td>Standard Pandas (read_csv)</td><td>MemoryError (OOM)</td><td>5.65 GB</td><td>59.3 s</td></tr><tr><td>Pandas Chunking</td><td>OK (constant memory)</td><td>0.19 GB</td><td>618.7 s</td></tr><tr><td>Dask DataFrame</td><td>OK (parallel)</td><td>3.61 GB</td><td>402.5 s</td></tr></table>
 <h2>Benchmark</h2><img src="benchmark.png" alt="benchmark">
 <h2>Memory over time</h2><img src="memory_timeline.png" alt="memory timeline">
 </body></html>

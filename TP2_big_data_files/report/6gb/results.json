@@ -1,15 +1,15 @@
 [
   {
     "method": "Standard Pandas (read_csv)",
-    "peak_mb": 5779.08203125,
-    "seconds": 42.980505899999116,
+    "peak_mb": 5785.91015625,
+    "seconds": 48.89061330000186,
     "status": "MemoryError (OOM)",
     "metrics": null
   },
   {
     "method": "Pandas Chunking",
-    "peak_mb": 190.69140625,
-    "seconds": 163.5271114999996,
+    "peak_mb": 193.87890625,
+    "seconds": 201.75817090000055,
     "status": "OK (constant memory)",
     "metrics": {
       "rows": 75000000,
@@ -20,8 +20,8 @@
   },
   {
     "method": "Dask DataFrame",
-    "peak_mb": 3855.29296875,
-    "seconds": 119.65930860000117,
+    "peak_mb": 4067.12890625,
+    "seconds": 144.8113255999997,
     "status": "OK (parallel)",
     "metrics": {
       "rows": 75000000,

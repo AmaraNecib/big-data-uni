@@ -21,7 +21,6 @@ import numpy as np
 import pandas as pd
 
 DATA_DIR = Path(__file__).parent / "data"
-CSV_FILE = DATA_DIR / "sales_big.csv"
 ROWS_PER_CHUNK = 1_000_000
 
 PRODUCTS = np.array(["Laptop", "Smartphone", "Tablet", "Monitor", "Keyboard",
@@ -52,26 +51,29 @@ def build_chunk(rng, start_id, n):
 def main():
     parser = argparse.ArgumentParser(description="Generate the TP02 sales dataset.")
     parser.add_argument("--gb", type=float, default=6.0, help="target size in GB")
+    parser.add_argument("--name", default="sales_6gb.csv",
+                        help="output file name inside data/")
     args = parser.parse_args()
 
     DATA_DIR.mkdir(exist_ok=True)
+    csv_file = DATA_DIR / args.name
     target_bytes = args.gb * 1024 ** 3
     rng = np.random.default_rng(42)
 
     rows = 0
     chunk = 0
-    with open(CSV_FILE, "w", encoding="utf-8", newline="") as handle:
-        while CSV_FILE.stat().st_size < target_bytes:
+    with open(csv_file, "w", encoding="utf-8", newline="") as handle:
+        while csv_file.stat().st_size < target_bytes:
             df = build_chunk(rng, rows, ROWS_PER_CHUNK)
             df.to_csv(handle, header=(chunk == 0), index=False)
             handle.flush()
             rows += ROWS_PER_CHUNK
             chunk += 1
-            size_gb = CSV_FILE.stat().st_size / 1024 ** 3
+            size_gb = csv_file.stat().st_size / 1024 ** 3
             print(f"chunk {chunk:>3} | rows={rows:>12,} | size={size_gb:.2f} GB")
 
-    final_gb = CSV_FILE.stat().st_size / 1024 ** 3
-    print(f"\nDone: {CSV_FILE}")
+    final_gb = csv_file.stat().st_size / 1024 ** 3
+    print(f"\nDone: {csv_file}")
     print(f"{rows:,} rows, {final_gb:.2f} GB")
 
 

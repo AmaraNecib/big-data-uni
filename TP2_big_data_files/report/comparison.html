@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>TP02 - 6 GB vs 20 GB</title><style>
+body{font-family:Segoe UI,system-ui,sans-serif;background:#0b1017;color:#e8eef5;
+padding:32px;max-width:1000px;margin:auto} h1{color:#38bdf8}
+table{border-collapse:collapse;width:100%;margin:16px 0}
+th,td{border:1px solid #22303f;padding:10px;text-align:left}
+th{background:#16232f;color:#93a3b5} img{max-width:100%;border-radius:12px;
+border:1px solid #22303f;background:#fff;margin-top:10px}</style></head><body>
+<h1>TP02 - Big Data files: 6 GB vs 20 GB</h1>
+<table><tr><th>Method</th><th>Peak 6 GB</th><th>Peak 20 GB</th>
+<th>Time 6 GB</th><th>Time 20 GB</th><th>Time x</th></tr><tr><td>Standard Pandas (read_csv)</td><td>5.65 GB</td><td>5.65 GB</td><td>48.9 s</td><td>59.3 s</td><td>x1.21</td></tr><tr><td>Pandas Chunking</td><td>0.19 GB</td><td>0.19 GB</td><td>201.8 s</td><td>618.7 s</td><td>x3.07</td></tr><tr><td>Dask DataFrame</td><td>3.97 GB</td><td>3.61 GB</td><td>144.8 s</td><td>402.5 s</td><td>x2.78</td></tr></table>
+<img src="comparison.png" alt="comparison"></body></html>
