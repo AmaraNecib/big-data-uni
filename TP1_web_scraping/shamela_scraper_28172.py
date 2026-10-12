@@ -9,7 +9,7 @@ It answers the 4 questions of the assignment:
   3. save the data to a CSV file with pandas
   4. the CSV has more than 1,000 rows
 
-Run:  python shamela_scraper.py
+Run:  python shamela_scraper_28172.py
 """
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -37,12 +37,10 @@ def extract_page_data(html):
     soup = BeautifulSoup(html, "html.parser")
 
     # The title looks like: "ج1 - ص17 - <book> - <chapter> - المكتبة الشاملة"
-    # or without a volume:  "ص1 - <book> - <chapter> - المكتبة الشاملة"
     title = soup.title.get_text(strip=True) if soup.title else ""
     parts = [part.strip() for part in title.split(" - ")]
     # a single-volume book has no "ج" in the title, so we use volume 1
     juz = next((part[1:] for part in parts if re.fullmatch(r"ج\d+", part)), "1")
-    print_page = next((part[1:] for part in parts if re.fullmatch(r"ص\d+", part)), "")
     chapter = parts[-2] if len(parts) >= 2 else ""
 
     # The text lives inside <div class="nass">, one paragraph per <p>
@@ -56,7 +54,8 @@ def extract_page_data(html):
 
     return {
         "page_id": container.get("data-page-id") if container else "",
-        "print_page": print_page,
+        # the site stores the printed page number in this attribute
+        "print_page": (container.get("data-page-num") if container else "") or "",
         "juz": juz,
         "chapter": chapter,
         "paragraphs": paragraphs,

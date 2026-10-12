@@ -1,7 +1,7 @@
 """
 TP1 (extra) - Python Web Scraping
-Scrape the full book "شرح الآجرومية - حسن حفظي" from the Shamela library.
-Book: https://shamela.ws/book/2122
+Scrape the full book "فتح رب البرية في شرح نظم الآجرومية" from the Shamela library.
+Book: https://shamela.ws/book/36087
 
 Same work as TP1, but for another book (extra marks):
   1. download all the pages and show the HTML source of the first page
@@ -9,7 +9,7 @@ Same work as TP1, but for another book (extra marks):
   3. save the data to a CSV file with pandas
   4. the CSV has more than 1,000 rows
 
-Run:  python shamela_scraper.py
+Run:  python shamela_scraper_36087.py
 """
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -19,10 +19,10 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-BOOK_ID = 2122
-LAST_PAGE = 302  # last page number of this book
+BOOK_ID = 36087
+LAST_PAGE = 649  # last page number of this book
 BASE_URL = f"https://shamela.ws/book/{BOOK_ID}"
-CSV_FILE = Path(__file__).parent / "data" / "book_2122.csv"
+CSV_FILE = Path(__file__).parent / "data" / "book_36087.csv"
 HEADERS = {"User-Agent": "Mozilla/5.0 (TP1 - educational scraping)"}
 
 
@@ -37,12 +37,10 @@ def extract_page_data(html):
     soup = BeautifulSoup(html, "html.parser")
 
     # The title looks like: "ج1 - ص17 - <book> - <chapter> - المكتبة الشاملة"
-    # or without a volume:  "ص1 - <book> - <chapter> - المكتبة الشاملة"
     title = soup.title.get_text(strip=True) if soup.title else ""
     parts = [part.strip() for part in title.split(" - ")]
     # a single-volume book has no "ج" in the title, so we use volume 1
     juz = next((part[1:] for part in parts if re.fullmatch(r"ج\d+", part)), "1")
-    print_page = next((part[1:] for part in parts if re.fullmatch(r"ص\d+", part)), "")
     chapter = parts[-2] if len(parts) >= 2 else ""
 
     # The text lives inside <div class="nass">, one paragraph per <p>
@@ -56,7 +54,8 @@ def extract_page_data(html):
 
     return {
         "page_id": container.get("data-page-id") if container else "",
-        "print_page": print_page,
+        # the site stores the printed page number in this attribute
+        "print_page": (container.get("data-page-num") if container else "") or "",
         "juz": juz,
         "chapter": chapter,
         "paragraphs": paragraphs,

@@ -29,8 +29,10 @@ The program is only **3 functions**, one job each:
    fast but still polite to the server.
 
 2. **`extract_page_data(html)`** — parses one page with BeautifulSoup:
-   * the page title gives the volume, the printed page and the chapter, e.g.
+   * the page title gives the volume and the chapter, e.g.
      `ج1 - ص17 - <book> - <chapter> - المكتبة الشاملة`;
+   * the printed page number is read from the site's own `data-page-num`
+     attribute, which works even for pages without `ص` in the title;
    * the text lives inside `<div class="nass">`, one paragraph per `<p>`,
      so we read every `<p>` and keep its text.
 
@@ -40,7 +42,7 @@ The program is only **3 functions**, one job each:
 ## Run
 
 ```bash
-python shamela_scraper.py
+python shamela_scraper_28172.py
 ```
 
 ## CSV columns
