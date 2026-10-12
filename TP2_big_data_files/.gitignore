@@ -1,0 +1,9 @@
+# the big generated dataset (never commit it - GitHub limit is 100 MB/file)
+data/
+
+# the explainer page (keep locally, do not commit)
+TP02-explained.html
+
+# python
+__pycache__/
+*.pyc

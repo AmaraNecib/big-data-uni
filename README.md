@@ -1,4 +1,4 @@
-# Big Data Analytics – TP01 (Python Web Scraping)
+# Big Data Analytics – TP01 & TP02
 
 **University of Eloued** — Faculty of Exact Sciences — Department of Computer Science
 Second-year Master: IA & Data Science — Module: **Big Data Analytics**
@@ -23,6 +23,11 @@ big-data-uni/
 │   ├── shamela_scraper_36087.py       # scraper for book 36087
 │   ├── data/book_2122.csv
 │   ├── data/book_36087.csv
+│   └── README.md
+├── TP2_big_data_files/               # TP02: 5GB+ files (OOM / chunking / Dask)
+│   ├── generate_dataset.py            # creates the 6 GB CSV
+│   ├── tp02.py                        # the 3 tasks + report
+│   ├── report/                        # charts + results
 │   └── README.md
 ├── requirements.txt
 └── tp-01/                            # python virtual environment
