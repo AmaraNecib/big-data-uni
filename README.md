@@ -1,50 +1,43 @@
-# TP01 – Python Web Scraping Case-study
+# Big Data Analytics – TP01 (Python Web Scraping)
 
 **University of Eloued** — Faculty of Exact Sciences — Department of Computer Science
 Second-year Master: IA & Data Science — Module: **Big Data Analytics**
 Academic season: 2026/2027
 
-A simple web-scraping project that fetches a full book from the **Shamela**
-library (an educational website), extracts its text with **BeautifulSoup**,
-and saves the result to a **CSV** file with **pandas** (more than 1,000 rows).
+Web-scraping project: fetch a full book from the **Shamela** library
+(an educational website), extract the text with **BeautifulSoup** and save it
+to **CSV** with **pandas** (more than 1,000 rows).
 
 ---
 
-## Website chosen
+## Repository structure
 
-| | |
-|---|---|
-| Site | [shamela.ws](https://shamela.ws) – the Arabic "Shamela" library |
-| Book | [نسب معد واليمن الكبير – ابن الكلبي](https://shamela.ws/book/28172) |
-| Pages | 720 pages |
+```
+big-data-uni/
+├── TP1_web_scraping/        # the main TP1 solution  (book 28172)
+│   ├── shamela_scraper.py
+│   ├── data/book_28172.csv
+│   └── README.md
+├── TP1_extra/               # the extra part, same work  (book 2122)
+│   ├── shamela_scraper.py
+│   ├── data/book_2122.csv
+│   └── README.md
+├── requirements.txt
+└── tp-01/                   # python virtual environment
+```
 
-The assignment asks for **"an educational website"** (no specific site), and
-Shamela is an educational text library, so it was chosen as the target.
+* **TP1_web_scraping** – the TP1 case-study, on the book
+  [نسب معد واليمن الكبير](https://shamela.ws/book/28172) (720 pages → 6,642 rows).
+* **TP1_extra** – the extra part (for more marks), same work on another book
+  [شرح الآجرومية](https://shamela.ws/book/2122) (302 pages → 1,568 rows).
 
 ---
-
-## How the assignment is answered
-
-| # | Question | Where in the code |
-|---|----------|-------------------|
-| 1 | Fetch the content of all pages and display the HTML source | `fetch_html()` downloads the 720 pages, `main()` prints the source of page 1 |
-| 2 | Extract the data with **BeautifulSoup** | `parse_page()` extracts page, chapter and paragraphs |
-| 3 | Save the results to **CSV** with **pandas** | `main()` → `df.to_csv("data/shamela_book.csv")` |
-| 4 | The file must have **≥ 1,000 rows** | One row per paragraph → **6,642 rows** (`assert len(df) >= 1000`) |
-
----
-
-## Requirements
-
-* Python 3.x
-* `requests`, `beautifulsoup4`, `pandas` (see `requirements.txt`)
 
 ## Setup
 
-The virtual environment is named **`tp-01`**:
+The virtual environment is named **`tp-01`**.
 
 ```bash
-# create and activate the environment
 python -m venv tp-01
 
 # Windows
@@ -52,34 +45,17 @@ tp-01\Scripts\activate
 # Linux / macOS
 source tp-01/bin/activate
 
-# install the dependencies
 pip install -r requirements.txt
 ```
 
 ## Run
 
 ```bash
+cd TP1_web_scraping
+python shamela_scraper.py
+
+cd ../TP1_extra
 python shamela_scraper.py
 ```
 
-Output: `data/shamela_book.csv`
-
-### CSV columns
-
-| column | meaning |
-|--------|---------|
-| `page_id` | sequential page id on the website |
-| `print_page` | page number in the printed book (ص) |
-| `juz` | volume / part (ج) |
-| `chapter` | chapter (chapter of the book) |
-| `paragraph_no` | paragraph order inside the page |
-| `text` | the paragraph text |
-
----
-
-## Result
-
-```
-Saved 6642 rows from 720 book pages to data/shamela_book.csv
-OK: the file has at least 1,000 rows.
-```
+Each script writes its CSV file inside its own `data/` folder.
