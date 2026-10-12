@@ -49,7 +49,7 @@ python shamela_scraper.py
 |--------|---------|
 | `page_id` | sequential page id on the website |
 | `print_page` | page number in the printed book (ص) |
-| `juz` | volume / part (ج) |
+| `juz` | volume / part (ج); `1` for a single-volume book |
 | `chapter` | chapter of the book |
 | `paragraph_no` | paragraph order inside the page |
 | `text` | the paragraph text |

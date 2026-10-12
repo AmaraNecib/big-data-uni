@@ -40,7 +40,8 @@ def extract_page_data(html):
     # or without a volume:  "ص1 - <book> - <chapter> - المكتبة الشاملة"
     title = soup.title.get_text(strip=True) if soup.title else ""
     parts = [part.strip() for part in title.split(" - ")]
-    juz = next((part[1:] for part in parts if re.fullmatch(r"ج\d+", part)), "")
+    # a single-volume book has no "ج" in the title, so we use volume 1
+    juz = next((part[1:] for part in parts if re.fullmatch(r"ج\d+", part)), "1")
     print_page = next((part[1:] for part in parts if re.fullmatch(r"ص\d+", part)), "")
     chapter = parts[-2] if len(parts) >= 2 else ""
 

@@ -28,7 +28,8 @@ Same three functions as the main solution:
 2. **`extract_page_data(html)`** — reads the title for the page number and the
    chapter, then reads every `<p>` inside `<div class="nass">`.
    This book has no volume part in its title (`ص1 - <book> - <chapter> - ...`),
-   so the code finds `ص` and `ج` wherever they are instead of assuming a fixed order.
+   so the code finds `ص` and `ج` wherever they are instead of assuming a fixed
+   order; when there is no `ج`, the book is single-volume and `juz` is set to `1`.
 3. **`main()`** — downloads the pages, builds one row per paragraph, saves the
    CSV with pandas and checks the 1,000-row rule.
 
