@@ -13,7 +13,7 @@ the charts (PNG) used in the written report.
 
 Run:
     python generate_dataset.py --gb 6      # 1) create the 5GB+ dataset
-    python tp02.py                         # 2) run the three tasks + report
+    python tp02.py --chunk-sizes 1000 100000 1000000 10000000
 """
 import argparse
 import ctypes
@@ -34,7 +34,7 @@ import psutil
 BASE_DIR = Path(__file__).parent
 DATA_FILE = BASE_DIR / "data" / "sales_6gb.csv"
 REPORT_DIR = BASE_DIR / "report"
-CHUNK_SIZE = 100_000
+DEFAULT_CHUNK_SIZES = [100_000]
 NUMERIC_COLUMNS = ["quantity", "unit_price", "total_amount"]
 TASK1_MEMORY_LIMIT_GB = 6  # cap used to reproduce the OOM on a big-RAM machine
 
@@ -186,9 +186,9 @@ def task1_oom():
 # =====================================================================
 #  Task 2 - stream processing (pandas chunking)
 # =====================================================================
-def task2_chunking():
-    """Process the file in chunks of 100,000 rows, incrementally."""
-    print(f"\n[TASK 2] pandas chunking (chunksize={CHUNK_SIZE:,})")
+def task2_chunking(chunk_size):
+    """Process the file incrementally using the requested number of rows."""
+    print(f"\n[TASK 2] pandas chunking (chunksize={chunk_size:,})")
 
     totals = {column: 0.0 for column in NUMERIC_COLUMNS}
     rows = 0
@@ -196,7 +196,7 @@ def task2_chunking():
 
     with MemoryMonitor() as monitor:
         start = time.perf_counter()
-        for chunk in pd.read_csv(DATA_FILE, chunksize=CHUNK_SIZE):
+        for chunk in pd.read_csv(DATA_FILE, chunksize=chunk_size):
             rows += len(chunk)
             partial = chunk[NUMERIC_COLUMNS].sum()
             for column in NUMERIC_COLUMNS:
@@ -215,7 +215,8 @@ def task2_chunking():
     print(f"[TASK 2] sum(total_amount)={metrics['total_amount_sum']:,}  "
           f"mean(unit_price)={metrics['unit_price_mean']}")
 
-    return {"method": "Pandas Chunking", "peak_mb": monitor.peak_mb,
+    return {"method": f"Pandas Chunking ({chunk_size:,})",
+            "peak_mb": monitor.peak_mb,
             "seconds": seconds, "status": "OK (constant memory)", "metrics": metrics,
             "samples": monitor.samples}
 
@@ -277,8 +278,11 @@ def _bar_chart(ax, results, field, title, color_map, transform=lambda v: v, labe
 def build_report(results):
     REPORT_DIR.mkdir(exist_ok=True)
     colors = {"Standard Pandas (read_csv)": "#e5484d",
-              "Pandas Chunking": "#f5a524",
               "Dask DataFrame": "#30a46c"}
+    chunk_colors = ["#f5a524", "#e08b00", "#c96f00", "#a85400"]
+    for index, result in enumerate(
+            result for result in results if result["method"].startswith("Pandas Chunking")):
+        colors[result["method"]] = chunk_colors[index % len(chunk_colors)]
 
     # --- results.csv ---
     table = pd.DataFrame([{
@@ -357,6 +361,10 @@ def main():
                         help="folder for the report output")
     parser.add_argument("--task1-worker", action="store_true",
                         help="internal: read the file with pd.read_csv (may OOM)")
+    parser.add_argument("--chunk-sizes", type=int, nargs="+",
+                        default=DEFAULT_CHUNK_SIZES,
+                        help=("one or more pandas chunk sizes in rows "
+                              "(default: 100000)"))
     args = parser.parse_args()
 
     DATA_FILE = Path(args.data)
@@ -376,7 +384,13 @@ def main():
           f"({DATA_FILE.stat().st_size/1024**3:.2f} GB)")
     print("=" * 66)
 
-    results = [task1_oom(), task2_chunking(), task3_dask()]
+    invalid_sizes = [size for size in args.chunk_sizes if size <= 0]
+    if invalid_sizes:
+        raise SystemExit("Chunk sizes must be positive integers.")
+
+    results = [task1_oom()]
+    results.extend(task2_chunking(size) for size in args.chunk_sizes)
+    results.append(task3_dask())
 
     print("\n" + "=" * 66)
     print(f"{'Method':<30}{'Status':<24}{'Peak RAM':>10}{'Time':>10}")

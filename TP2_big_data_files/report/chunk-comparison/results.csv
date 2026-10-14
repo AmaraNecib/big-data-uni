@@ -1,0 +1,7 @@
+﻿Method,Status,Peak RAM (GB),Execution time (s)
+Standard Pandas (read_csv),MemoryError (OOM),5.644,45.6
+"Pandas Chunking (1,000)",OK (constant memory),0.118,502.33
+"Pandas Chunking (100,000)",OK (constant memory),0.188,173.65
+"Pandas Chunking (1,000,000)",OK (constant memory),0.618,173.71
+"Pandas Chunking (10,000,000)",OK (constant memory),4.573,247.52
+Dask DataFrame,OK (parallel),5.028,201.27

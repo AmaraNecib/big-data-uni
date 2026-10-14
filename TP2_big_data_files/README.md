@@ -63,6 +63,22 @@ python tp02.py --data data/sales_20gb.csv --report report/20gb
 python compare.py
 ```
 
+To compare several pandas chunk sizes in one run, pass them after
+`--chunk-sizes`:
+
+```bash
+python tp02.py --data data/sales_6gb.csv --report report/chunk-comparison `
+  --chunk-sizes 1000 100000 1000000 10000000
+```
+
+On Windows PowerShell, the backtick continues the command onto the next
+line; the command can also be entered on one line. The run executes Task 1
+once, each requested chunking benchmark once, and Dask once. A separate
+`Pandas Chunking (...)` row is written for every requested size. The
+`10,000,000`-row option is valid, but it uses considerably more RAM because
+one chunk is held in memory at a time. The final chunk may contain fewer
+rows when the dataset size is not an exact multiple of the chunk size.
+
 ---
 
 ## The three tasks
@@ -70,7 +86,7 @@ python compare.py
 | # | Task | Function | What happens |
 |---|------|----------|--------------|
 | 1 | **The Traditional Failure (OOM)** | `task1_oom()` | `pd.read_csv()` loads the *whole* file into RAM and crashes with `MemoryError` |
-| 2 | **Stream Processing (Chunking)** | `task2_chunking()` | reads the file in chunks of **100,000 rows** and accumulates `sum` / `mean` incrementally |
+| 2 | **Stream Processing (Chunking)** | `task2_chunking(chunk_size)` | reads the file in the requested number of rows (default **100,000**) and accumulates `sum` / `mean` incrementally |
 | 3 | **Parallel Out-of-Core (Dask)** | `task3_dask()` | `dask.dataframe.read_csv` builds a **lazy** graph; `.compute()` runs it in parallel |
 
 Extra pieces: `MemoryMonitor` (samples RAM over time with `psutil`),
