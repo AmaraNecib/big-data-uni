@@ -1,0 +1,17 @@
+$ docker exec tp05-kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+independent-a-df102522
+tp05-report-extended-20261103T211334Z-f5bab0
+tp05-report-extended-20261110T200345Z-d817ef
+tp05-three-20261110T200245Z-739e5e
+tp05-report-teacher-20261110T200246Z-797be2
+tp05-campus-monitor
+tp05-independent-a-20261110T200245Z-739e5e
+independent-b-df102522
+tp05-report-teacher-20261103T211152Z-e9d2f2
+tp05-shared-20261110T200245Z-739e5e
+tp05-one-20261110T200245Z-739e5e
+filter-df102522
+filter-a0048029
+tp05-report-csv-20261103T211557Z-4e450f
+tp05-report-csv-20261110T200539Z-1ea1e5
+tp05-independent-b-20261110T200245Z-739e5e

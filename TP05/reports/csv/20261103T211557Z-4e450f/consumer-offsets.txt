@@ -1,0 +1,7 @@
+$ docker exec tp05-kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group tp05-report-csv-20261103T211557Z-4e450f
+
+GROUP                                   TOPIC                   PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+tp05-report-csv-20261103T211557Z-4e450f campus-sensors-extended 0          74              74              0               -               -               -
+tp05-report-csv-20261103T211557Z-4e450f campus-sensors-extended 2          59              59              0               -               -               -
+tp05-report-csv-20261103T211557Z-4e450f campus-sensors-extended 1          67              67              0               -               -               -
+Consumer group 'tp05-report-csv-20261103T211557Z-4e450f' has no active members.

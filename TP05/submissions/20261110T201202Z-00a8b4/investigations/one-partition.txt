@@ -1,0 +1,3 @@
+$ docker exec tp05-kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic tp05-partitions-20261110t201202z-00a8b4
+Topic: tp05-partitions-20261110t201202z-00a8b4	TopicId: tQwDHbWkReq9m4KZkJ0XWA	PartitionCount: 1	ReplicationFactor: 1	Configs: segment.bytes=16777216,retention.bytes=67108864
+	Topic: tp05-partitions-20261110t201202z-00a8b4	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 

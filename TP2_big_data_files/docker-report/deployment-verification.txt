@@ -1,0 +1,15 @@
+Docker verification
+2026-10-28T00:12:34+01:00
+Docker version 29.5.3, build d1c06ef
+Docker Compose version v5.1.4
+["amaranecib/sales-bigdata-tp04@sha256:2386d3059bbb6741245900f8ca9ffb1c7697663e04baf09bd7953eabf118971b"]
+NAMES        STATUS         NETWORKS
+tp04-node3   Up 8 minutes   tp04-network
+tp04-node2   Up 8 minutes   tp04-network
+tp04-node1   Up 8 minutes   tp04-network
+dd126d248a5c CSV bytes: 6463485112
+node1 DNS: 172.18.0.2
+1f2b610aa398 CSV bytes: 6463485112
+node1 DNS: 172.18.0.2
+c48bec120676 CSV bytes: 6463485112
+node1 DNS: 172.18.0.2

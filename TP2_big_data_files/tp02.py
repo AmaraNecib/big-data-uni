@@ -361,6 +361,8 @@ def main():
                         help="folder for the report output")
     parser.add_argument("--task1-worker", action="store_true",
                         help="internal: read the file with pd.read_csv (may OOM)")
+    parser.add_argument("--skip-oom", action="store_true",
+                        help="skip the full-file read (useful inside containers)")
     parser.add_argument("--chunk-sizes", type=int, nargs="+",
                         default=DEFAULT_CHUNK_SIZES,
                         help=("one or more pandas chunk sizes in rows "
@@ -388,7 +390,9 @@ def main():
     if invalid_sizes:
         raise SystemExit("Chunk sizes must be positive integers.")
 
-    results = [task1_oom()]
+    # The full-file read is intentionally memory intensive. Containers do not
+    # use the Windows Job Object limit above, so keep it opt-in there.
+    results = [] if args.skip_oom else [task1_oom()]
     results.extend(task2_chunking(size) for size in args.chunk_sizes)
     results.append(task3_dask())
 

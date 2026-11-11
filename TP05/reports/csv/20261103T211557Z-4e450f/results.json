@@ -1,0 +1,885 @@
+{
+  "mode": "csv",
+  "title": "Combined monitoring and CSV",
+  "run_id": "20261103T211557Z-4e450f",
+  "started_utc": "2026-11-03T21:15:57.994181+00:00",
+  "status": "PASS",
+  "producer": "producer_extended.py",
+  "consumer": "consumer_extended_csv.py",
+  "python": "3.11.14",
+  "expected_events": 100,
+  "checks": [
+    {
+      "name": "Requested event count",
+      "passed": true
+    },
+    {
+      "name": "Kafka records equal producer output",
+      "passed": true
+    },
+    {
+      "name": "Displayed readings match building filter",
+      "passed": true
+    },
+    {
+      "name": "High-temperature alerts match displayed readings",
+      "passed": true
+    },
+    {
+      "name": "Consumer counted every new event",
+      "passed": true
+    },
+    {
+      "name": "Running average matches all received events",
+      "passed": true
+    },
+    {
+      "name": "CSV has the five requested columns and exactly the displayed events",
+      "passed": true
+    },
+    {
+      "name": "Student source files remain unchanged",
+      "passed": true
+    }
+  ],
+  "events": [
+    {
+      "event_id": 1,
+      "sensor_id": "sensor-03",
+      "temperature_c": 36.32,
+      "humidity_pct": 68.03,
+      "timestamp": "2026-11-03T21:16:43.568463+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 2,
+      "sensor_id": "sensor-03",
+      "temperature_c": 19.47,
+      "humidity_pct": 44.4,
+      "timestamp": "2026-11-03T21:16:44.640170+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 3,
+      "sensor_id": "sensor-01",
+      "temperature_c": 35.55,
+      "humidity_pct": 73.48,
+      "timestamp": "2026-11-03T21:16:45.660971+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 4,
+      "sensor_id": "sensor-02",
+      "temperature_c": 18.53,
+      "humidity_pct": 75.54,
+      "timestamp": "2026-11-03T21:16:46.696196+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 5,
+      "sensor_id": "sensor-04",
+      "temperature_c": 41.58,
+      "humidity_pct": 66.36,
+      "timestamp": "2026-11-03T21:16:47.740005+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 6,
+      "sensor_id": "sensor-04",
+      "temperature_c": 33.34,
+      "humidity_pct": 82.4,
+      "timestamp": "2026-11-03T21:16:48.752978+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 7,
+      "sensor_id": "sensor-02",
+      "temperature_c": 40.54,
+      "humidity_pct": 34.03,
+      "timestamp": "2026-11-03T21:16:49.760271+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 8,
+      "sensor_id": "sensor-02",
+      "temperature_c": 20.81,
+      "humidity_pct": 32.49,
+      "timestamp": "2026-11-03T21:16:50.771686+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 9,
+      "sensor_id": "sensor-03",
+      "temperature_c": 28.29,
+      "humidity_pct": 42.23,
+      "timestamp": "2026-11-03T21:16:51.787866+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 10,
+      "sensor_id": "sensor-01",
+      "temperature_c": 27.97,
+      "humidity_pct": 40.03,
+      "timestamp": "2026-11-03T21:16:52.810125+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 11,
+      "sensor_id": "sensor-04",
+      "temperature_c": 23.06,
+      "humidity_pct": 27.19,
+      "timestamp": "2026-11-03T21:16:53.848537+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 12,
+      "sensor_id": "sensor-01",
+      "temperature_c": 19.27,
+      "humidity_pct": 30.75,
+      "timestamp": "2026-11-03T21:16:54.867228+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 13,
+      "sensor_id": "sensor-02",
+      "temperature_c": 28.79,
+      "humidity_pct": 32.72,
+      "timestamp": "2026-11-03T21:16:55.874941+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 14,
+      "sensor_id": "sensor-02",
+      "temperature_c": 39.16,
+      "humidity_pct": 57.41,
+      "timestamp": "2026-11-03T21:16:56.901564+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 15,
+      "sensor_id": "sensor-03",
+      "temperature_c": 28.0,
+      "humidity_pct": 29.88,
+      "timestamp": "2026-11-03T21:16:57.915183+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 16,
+      "sensor_id": "sensor-01",
+      "temperature_c": 31.48,
+      "humidity_pct": 40.53,
+      "timestamp": "2026-11-03T21:16:58.933638+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 17,
+      "sensor_id": "sensor-02",
+      "temperature_c": 32.37,
+      "humidity_pct": 55.51,
+      "timestamp": "2026-11-03T21:16:59.969660+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 18,
+      "sensor_id": "sensor-02",
+      "temperature_c": 22.24,
+      "humidity_pct": 46.91,
+      "timestamp": "2026-11-03T21:17:01.007624+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 19,
+      "sensor_id": "sensor-02",
+      "temperature_c": 19.84,
+      "humidity_pct": 30.99,
+      "timestamp": "2026-11-03T21:17:02.060414+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 20,
+      "sensor_id": "sensor-02",
+      "temperature_c": 28.36,
+      "humidity_pct": 69.09,
+      "timestamp": "2026-11-03T21:17:03.123129+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 21,
+      "sensor_id": "sensor-04",
+      "temperature_c": 38.16,
+      "humidity_pct": 73.86,
+      "timestamp": "2026-11-03T21:17:04.149787+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 22,
+      "sensor_id": "sensor-02",
+      "temperature_c": 32.49,
+      "humidity_pct": 81.33,
+      "timestamp": "2026-11-03T21:17:05.184197+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 23,
+      "sensor_id": "sensor-03",
+      "temperature_c": 28.51,
+      "humidity_pct": 78.72,
+      "timestamp": "2026-11-03T21:17:06.221273+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 24,
+      "sensor_id": "sensor-02",
+      "temperature_c": 18.39,
+      "humidity_pct": 70.45,
+      "timestamp": "2026-11-03T21:17:07.238090+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 25,
+      "sensor_id": "sensor-03",
+      "temperature_c": 39.78,
+      "humidity_pct": 47.03,
+      "timestamp": "2026-11-03T21:17:08.286683+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 26,
+      "sensor_id": "sensor-02",
+      "temperature_c": 36.44,
+      "humidity_pct": 29.27,
+      "timestamp": "2026-11-03T21:17:09.308420+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 27,
+      "sensor_id": "sensor-01",
+      "temperature_c": 39.18,
+      "humidity_pct": 70.64,
+      "timestamp": "2026-11-03T21:17:10.316363+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 28,
+      "sensor_id": "sensor-01",
+      "temperature_c": 31.38,
+      "humidity_pct": 26.6,
+      "timestamp": "2026-11-03T21:17:11.331597+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 29,
+      "sensor_id": "sensor-03",
+      "temperature_c": 24.06,
+      "humidity_pct": 35.74,
+      "timestamp": "2026-11-03T21:17:12.346457+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 30,
+      "sensor_id": "sensor-01",
+      "temperature_c": 18.93,
+      "humidity_pct": 36.97,
+      "timestamp": "2026-11-03T21:17:13.399748+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 31,
+      "sensor_id": "sensor-04",
+      "temperature_c": 20.86,
+      "humidity_pct": 35.56,
+      "timestamp": "2026-11-03T21:17:14.458873+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 32,
+      "sensor_id": "sensor-04",
+      "temperature_c": 19.12,
+      "humidity_pct": 53.0,
+      "timestamp": "2026-11-03T21:17:15.499823+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 33,
+      "sensor_id": "sensor-01",
+      "temperature_c": 32.62,
+      "humidity_pct": 56.54,
+      "timestamp": "2026-11-03T21:17:16.542689+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 34,
+      "sensor_id": "sensor-01",
+      "temperature_c": 39.81,
+      "humidity_pct": 31.62,
+      "timestamp": "2026-11-03T21:17:17.581148+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 35,
+      "sensor_id": "sensor-02",
+      "temperature_c": 27.19,
+      "humidity_pct": 25.65,
+      "timestamp": "2026-11-03T21:17:18.615955+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 36,
+      "sensor_id": "sensor-03",
+      "temperature_c": 27.64,
+      "humidity_pct": 51.26,
+      "timestamp": "2026-11-03T21:17:19.664761+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 37,
+      "sensor_id": "sensor-04",
+      "temperature_c": 27.74,
+      "humidity_pct": 81.77,
+      "timestamp": "2026-11-03T21:17:20.710601+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 38,
+      "sensor_id": "sensor-04",
+      "temperature_c": 38.46,
+      "humidity_pct": 43.44,
+      "timestamp": "2026-11-03T21:17:21.727000+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 39,
+      "sensor_id": "sensor-04",
+      "temperature_c": 18.69,
+      "humidity_pct": 77.78,
+      "timestamp": "2026-11-03T21:17:22.903380+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 40,
+      "sensor_id": "sensor-01",
+      "temperature_c": 22.47,
+      "humidity_pct": 47.58,
+      "timestamp": "2026-11-03T21:17:23.941835+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 41,
+      "sensor_id": "sensor-01",
+      "temperature_c": 22.67,
+      "humidity_pct": 84.56,
+      "timestamp": "2026-11-03T21:17:24.982854+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 42,
+      "sensor_id": "sensor-02",
+      "temperature_c": 39.8,
+      "humidity_pct": 54.3,
+      "timestamp": "2026-11-03T21:17:26.018928+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 43,
+      "sensor_id": "sensor-01",
+      "temperature_c": 37.83,
+      "humidity_pct": 30.14,
+      "timestamp": "2026-11-03T21:17:27.040844+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 44,
+      "sensor_id": "sensor-03",
+      "temperature_c": 33.87,
+      "humidity_pct": 80.62,
+      "timestamp": "2026-11-03T21:17:28.072645+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 45,
+      "sensor_id": "sensor-02",
+      "temperature_c": 21.05,
+      "humidity_pct": 25.37,
+      "timestamp": "2026-11-03T21:17:29.099547+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 46,
+      "sensor_id": "sensor-02",
+      "temperature_c": 33.49,
+      "humidity_pct": 31.7,
+      "timestamp": "2026-11-03T21:17:30.124660+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 47,
+      "sensor_id": "sensor-01",
+      "temperature_c": 40.12,
+      "humidity_pct": 74.24,
+      "timestamp": "2026-11-03T21:17:31.160198+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 48,
+      "sensor_id": "sensor-01",
+      "temperature_c": 31.73,
+      "humidity_pct": 29.98,
+      "timestamp": "2026-11-03T21:17:32.196271+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 49,
+      "sensor_id": "sensor-02",
+      "temperature_c": 30.26,
+      "humidity_pct": 47.78,
+      "timestamp": "2026-11-03T21:17:33.232760+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 50,
+      "sensor_id": "sensor-01",
+      "temperature_c": 41.1,
+      "humidity_pct": 80.69,
+      "timestamp": "2026-11-03T21:17:34.237845+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 51,
+      "sensor_id": "sensor-01",
+      "temperature_c": 37.72,
+      "humidity_pct": 44.76,
+      "timestamp": "2026-11-03T21:17:35.272904+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 52,
+      "sensor_id": "sensor-03",
+      "temperature_c": 32.71,
+      "humidity_pct": 55.81,
+      "timestamp": "2026-11-03T21:17:36.301949+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 53,
+      "sensor_id": "sensor-04",
+      "temperature_c": 20.21,
+      "humidity_pct": 42.86,
+      "timestamp": "2026-11-03T21:17:37.323341+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 54,
+      "sensor_id": "sensor-04",
+      "temperature_c": 27.0,
+      "humidity_pct": 79.7,
+      "timestamp": "2026-11-03T21:17:38.326907+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 55,
+      "sensor_id": "sensor-04",
+      "temperature_c": 33.71,
+      "humidity_pct": 78.61,
+      "timestamp": "2026-11-03T21:17:39.337449+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 56,
+      "sensor_id": "sensor-01",
+      "temperature_c": 27.64,
+      "humidity_pct": 48.75,
+      "timestamp": "2026-11-03T21:17:40.363620+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 57,
+      "sensor_id": "sensor-04",
+      "temperature_c": 31.71,
+      "humidity_pct": 28.69,
+      "timestamp": "2026-11-03T21:17:41.377628+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 58,
+      "sensor_id": "sensor-03",
+      "temperature_c": 30.89,
+      "humidity_pct": 38.41,
+      "timestamp": "2026-11-03T21:17:42.398161+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 59,
+      "sensor_id": "sensor-02",
+      "temperature_c": 21.83,
+      "humidity_pct": 61.23,
+      "timestamp": "2026-11-03T21:17:43.411763+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 60,
+      "sensor_id": "sensor-03",
+      "temperature_c": 24.03,
+      "humidity_pct": 49.68,
+      "timestamp": "2026-11-03T21:17:44.437340+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 61,
+      "sensor_id": "sensor-01",
+      "temperature_c": 21.49,
+      "humidity_pct": 67.94,
+      "timestamp": "2026-11-03T21:17:45.447961+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 62,
+      "sensor_id": "sensor-03",
+      "temperature_c": 26.46,
+      "humidity_pct": 40.69,
+      "timestamp": "2026-11-03T21:17:46.473733+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 63,
+      "sensor_id": "sensor-02",
+      "temperature_c": 27.53,
+      "humidity_pct": 58.53,
+      "timestamp": "2026-11-03T21:17:47.487096+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 64,
+      "sensor_id": "sensor-03",
+      "temperature_c": 26.03,
+      "humidity_pct": 42.09,
+      "timestamp": "2026-11-03T21:17:48.526088+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 65,
+      "sensor_id": "sensor-02",
+      "temperature_c": 21.52,
+      "humidity_pct": 47.43,
+      "timestamp": "2026-11-03T21:17:49.545269+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 66,
+      "sensor_id": "sensor-04",
+      "temperature_c": 39.04,
+      "humidity_pct": 69.53,
+      "timestamp": "2026-11-03T21:17:50.552479+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 67,
+      "sensor_id": "sensor-03",
+      "temperature_c": 29.64,
+      "humidity_pct": 35.17,
+      "timestamp": "2026-11-03T21:17:51.565520+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 68,
+      "sensor_id": "sensor-04",
+      "temperature_c": 41.51,
+      "humidity_pct": 80.79,
+      "timestamp": "2026-11-03T21:17:52.587267+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 69,
+      "sensor_id": "sensor-03",
+      "temperature_c": 39.74,
+      "humidity_pct": 66.78,
+      "timestamp": "2026-11-03T21:17:53.595099+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 70,
+      "sensor_id": "sensor-01",
+      "temperature_c": 40.97,
+      "humidity_pct": 44.99,
+      "timestamp": "2026-11-03T21:17:54.598744+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 71,
+      "sensor_id": "sensor-04",
+      "temperature_c": 37.0,
+      "humidity_pct": 61.23,
+      "timestamp": "2026-11-03T21:17:55.612607+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 72,
+      "sensor_id": "sensor-01",
+      "temperature_c": 31.91,
+      "humidity_pct": 68.7,
+      "timestamp": "2026-11-03T21:17:56.631736+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 73,
+      "sensor_id": "sensor-03",
+      "temperature_c": 30.93,
+      "humidity_pct": 47.49,
+      "timestamp": "2026-11-03T21:17:57.648329+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 74,
+      "sensor_id": "sensor-03",
+      "temperature_c": 35.49,
+      "humidity_pct": 35.07,
+      "timestamp": "2026-11-03T21:17:58.671611+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 75,
+      "sensor_id": "sensor-01",
+      "temperature_c": 18.16,
+      "humidity_pct": 64.36,
+      "timestamp": "2026-11-03T21:17:59.688549+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 76,
+      "sensor_id": "sensor-03",
+      "temperature_c": 32.64,
+      "humidity_pct": 32.47,
+      "timestamp": "2026-11-03T21:18:00.712173+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 77,
+      "sensor_id": "sensor-02",
+      "temperature_c": 36.38,
+      "humidity_pct": 54.27,
+      "timestamp": "2026-11-03T21:18:01.728505+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 78,
+      "sensor_id": "sensor-02",
+      "temperature_c": 34.9,
+      "humidity_pct": 58.44,
+      "timestamp": "2026-11-03T21:18:02.746105+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 79,
+      "sensor_id": "sensor-03",
+      "temperature_c": 29.31,
+      "humidity_pct": 71.56,
+      "timestamp": "2026-11-03T21:18:03.760679+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 80,
+      "sensor_id": "sensor-01",
+      "temperature_c": 30.16,
+      "humidity_pct": 36.11,
+      "timestamp": "2026-11-03T21:18:04.770632+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 81,
+      "sensor_id": "sensor-01",
+      "temperature_c": 36.64,
+      "humidity_pct": 53.41,
+      "timestamp": "2026-11-03T21:18:05.778892+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 82,
+      "sensor_id": "sensor-04",
+      "temperature_c": 33.62,
+      "humidity_pct": 68.7,
+      "timestamp": "2026-11-03T21:18:06.797513+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 83,
+      "sensor_id": "sensor-01",
+      "temperature_c": 23.46,
+      "humidity_pct": 49.08,
+      "timestamp": "2026-11-03T21:18:07.814256+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 84,
+      "sensor_id": "sensor-01",
+      "temperature_c": 41.06,
+      "humidity_pct": 72.04,
+      "timestamp": "2026-11-03T21:18:08.851632+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 85,
+      "sensor_id": "sensor-02",
+      "temperature_c": 36.17,
+      "humidity_pct": 49.71,
+      "timestamp": "2026-11-03T21:18:09.869703+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 86,
+      "sensor_id": "sensor-01",
+      "temperature_c": 26.18,
+      "humidity_pct": 46.55,
+      "timestamp": "2026-11-03T21:18:10.899175+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 87,
+      "sensor_id": "sensor-01",
+      "temperature_c": 33.67,
+      "humidity_pct": 37.48,
+      "timestamp": "2026-11-03T21:18:11.904258+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 88,
+      "sensor_id": "sensor-01",
+      "temperature_c": 35.79,
+      "humidity_pct": 26.73,
+      "timestamp": "2026-11-03T21:18:12.945573+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 89,
+      "sensor_id": "sensor-01",
+      "temperature_c": 29.9,
+      "humidity_pct": 41.34,
+      "timestamp": "2026-11-03T21:18:13.990020+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 90,
+      "sensor_id": "sensor-03",
+      "temperature_c": 18.19,
+      "humidity_pct": 71.82,
+      "timestamp": "2026-11-03T21:18:15.009381+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 91,
+      "sensor_id": "sensor-02",
+      "temperature_c": 37.95,
+      "humidity_pct": 54.56,
+      "timestamp": "2026-11-03T21:18:16.051187+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 92,
+      "sensor_id": "sensor-04",
+      "temperature_c": 23.08,
+      "humidity_pct": 33.38,
+      "timestamp": "2026-11-03T21:18:17.067250+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 93,
+      "sensor_id": "sensor-01",
+      "temperature_c": 33.82,
+      "humidity_pct": 71.84,
+      "timestamp": "2026-11-03T21:18:18.085895+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 94,
+      "sensor_id": "sensor-04",
+      "temperature_c": 29.98,
+      "humidity_pct": 45.81,
+      "timestamp": "2026-11-03T21:18:19.138746+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 95,
+      "sensor_id": "sensor-03",
+      "temperature_c": 31.16,
+      "humidity_pct": 42.4,
+      "timestamp": "2026-11-03T21:18:20.152326+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 96,
+      "sensor_id": "sensor-01",
+      "temperature_c": 18.96,
+      "humidity_pct": 45.62,
+      "timestamp": "2026-11-03T21:18:21.177172+00:00",
+      "campus_building": "Engineering"
+    },
+    {
+      "event_id": 97,
+      "sensor_id": "sensor-04",
+      "temperature_c": 25.07,
+      "humidity_pct": 74.48,
+      "timestamp": "2026-11-03T21:18:22.196566+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 98,
+      "sensor_id": "sensor-02",
+      "temperature_c": 23.39,
+      "humidity_pct": 59.73,
+      "timestamp": "2026-11-03T21:18:23.218578+00:00",
+      "campus_building": "Science"
+    },
+    {
+      "event_id": 99,
+      "sensor_id": "sensor-02",
+      "temperature_c": 30.67,
+      "humidity_pct": 68.11,
+      "timestamp": "2026-11-03T21:18:24.257756+00:00",
+      "campus_building": "Library"
+    },
+    {
+      "event_id": 100,
+      "sensor_id": "sensor-01",
+      "temperature_c": 26.34,
+      "humidity_pct": 27.21,
+      "timestamp": "2026-11-03T21:18:25.267008+00:00",
+      "campus_building": "Science"
+    }
+  ],
+  "source_sha256": {
+    "producer_extended.py": "b0e033069e673a3e92f26b7498aa597b549af24e2acdd75a4a72f33fc459670a",
+    "consumer_extended_csv.py": "38323185b19c7fca3aaee78733fad84e6063aa5ceb04a6dea49fa506fa9a9842"
+  },
+  "artifacts": [
+    "consumer-offsets.txt",
+    "consumer-ready.txt",
+    "consumer.txt",
+    "docker-start.txt",
+    "docker-status.txt",
+    "producer.txt",
+    "sensor_events_extended.csv",
+    "topic-description.txt"
+  ],
+  "automation_scope": "Fresh events only. A unique report group seeks to the topic end positions captured before this run. An 8-second idle timeout lets the consumer finish. Student source files are not edited. CSV is written inside this run folder.",
+  "topic": "campus-sensors-extended",
+  "group_id": "tp05-report-csv-20261103T211557Z-4e450f",
+  "building": "Science",
+  "csv_file": "sensor_events_extended.csv",
+  "interval_seconds": 1,
+  "start_offsets": {
+    "0": 42,
+    "1": 25,
+    "2": 33
+  },
+  "end_offsets": {
+    "0": 74,
+    "1": 67,
+    "2": 59
+  },
+  "produced": 100,
+  "verified_in_kafka": 100,
+  "displayed": 29,
+  "alerts": 9,
+  "average_temperature_c": 30.02,
+  "csv_rows": 29,
+  "duration_seconds": 163.97,
+  "finished_utc": "2026-11-03T21:18:41.962165+00:00"
+}

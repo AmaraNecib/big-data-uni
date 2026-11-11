@@ -1,0 +1,10 @@
+services:
+  data-analysis:
+    build: .
+    image: amaranecib/sales-bigdata-tp04:with-data
+    container_name: tp04-analysis
+    volumes:
+      - ./docker-report:/app/report
+    restart: "no"
+    networks:
+      - dataset

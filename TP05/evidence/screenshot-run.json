@@ -1,0 +1,12 @@
+{
+  "scope": "Fresh run for recreating the four required screenshots. Not a repeat of all investigations.",
+  "produced": 30,
+  "new_events_confirmed_in_consumer": 30,
+  "high_temperature_events_in_new_batch": 13,
+  "consumer_displayed_measurements_including_any_replay": 30,
+  "first_event_timestamp": "2026-11-03T20:55:15.428339+00:00",
+  "last_event_timestamp": "2026-11-03T20:55:44.516593+00:00",
+  "scripts_modified": false,
+  "consumer_shutdown": "Harness terminated only its own consumer after collecting output and allowing auto-commit.",
+  "screenshot_type": "Native viewer displaying saved actual command output, not live-terminal screenshots."
+}

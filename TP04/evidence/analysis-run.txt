@@ -1,0 +1,24 @@
+ Container tp04-local-data-analysis-run-008960649466 Creating 
+ Container tp04-local-data-analysis-run-008960649466 Created 
+==================================================================
+TP02 - dataset: sales_6gb.csv (6.02 GB)
+==================================================================
+
+[TASK 2] pandas chunking (chunksize=100,000)
+[TASK 2] 75,000,000 rows in 750 chunks  time=491.3s  peak=0.18 GB
+[TASK 2] sum(total_amount)=516,607,678,312.78  mean(unit_price)=1252.4186
+
+[TASK 3] dask.dataframe (lazy evaluation + parallel)
+[TASK 3] npartitions=100  graph tasks=200
+[TASK 3] .compute() not called yet -> no data has been processed (lazy)
+[TASK 3] .compute() done  time=116.5s  peak=2.90 GB
+[TASK 3] sum(total_amount)=516,607,678,312.78  mean(unit_price)=1252.4186
+
+==================================================================
+Method                        Status                    Peak RAM      Time
+------------------------------------------------------------------
+Pandas Chunking (100,000)     OK (constant memory)         0.18G    491.3s
+Dask DataFrame                OK (parallel)                2.90G    116.5s
+==================================================================
+
+Report written to /app/report  (report.html, benchmark.png, results.csv)

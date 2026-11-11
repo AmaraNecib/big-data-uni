@@ -1,0 +1,208 @@
+## Page 1
+ 
+4 /1:Page 
+University of Eloued 
+Faculty of Exact Sciences 
+Department of Computer science 
+For Second-year Master: IA & Data Science 
+University season: 2026/2027 
+Module:Big Data Analytics 
+  
+TP05: Real-Time Data Streaming and Processing Using Apache Kafka 
+ 
+Submission rule: Upload the complete TP05 folder to your GitHub account. Include Python source files, 
+compose.yaml, requirements.txt, screenshots, and a README.md containing setup instructions and answers. 
+1. Educational Objectives 
+Understand the role of Apache Kafka in distributed event-streaming architectures. 
+Distinguish Kafka brokers, topics, partitions, producers, consumers, and consumer groups. 
+Deploy a single-node Kafka broker in KRaft mode using Docker Compose. 
+Develop a Python producer that publishes simulated sensor events to a Kafka topic. 
+Develop a Python consumer that reads events, parses JSON messages, and performs simple real-time analysis. 
+Observe message flow, consumer offsets, and basic fault/debugging behavior. 
+2. Scenario and Problem Statement 
+A smart-campus monitoring system generates temperature and humidity readings continuously. Storing readings only in static 
+files delays analysis and makes it difficult for multiple applications to consume the same events. In this lab, students will  
+simulate sensor devices, stream JSON events through Apache Kafka, and build a consumer that reports measurements and 
+detects high-temperature events. The data are synthetic and are used only for educational purposes. 
+3. Prerequisites and Tools 
+Docker Desktop (Windows/macOS) or Docker Engine and Docker Compose (Linux). 
+Python 3.10 or later and pip. 
+A terminal, a text editor, and a GitHub account. 
+Basic knowledge of Python, JSON, command-line tools, and networking. 
+4. Project Structure 
+tp05-kafka/ 
+├── compose.yaml 
+├── requirements.txt 
+├── producer.py 
+├── consumer.py 
+├── README.md 
+└── screenshots/ 
+Create this folder and save the following files in it. 
+5. Task 1 — Deploy Kafka with Docker Compose 
+Create compose.yaml with the following configuration. It runs a single Kafka broker in KRaft mode (without a separate 
+ZooKeeper service) and exposes the broker on localhost:9092. 
+services: 
+  kafka: 
+    image: apache/kafka:3.9.1 
+    container_name: tp05-kafka 
+    ports: 
+      - "9092:9092" 
+    environment: 
+
+## Page 2
+ 
+4 /2:Page 
+      KAFKA_NODE_ID: 1 
+      KAFKA_PROCESS_ROLES: broker,controller 
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093 
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092 
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER 
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT 
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093 
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0 
+      KAFKA_NUM_PARTITIONS: 3 
+    volumes: 
+      - kafka_data:/var/lib/kafka/data 
+    restart: unless-stopped 
+ 
+volumes: 
+  kafka_data: 
+Run the commands below from the tp05-kafka directory: 
+docker compose up -d 
+docker compose ps 
+docker compose logs --tail=50 kafka 
+Expected result: the Kafka container is running. If port 9092 is already in use, stop the conflicting service or change the host 
+side of the port mapping and update the Python bootstrap server accordingly. 
+6. Task 2 — Install the Python Client 
+Create requirements.txt: 
+kafka-python==2.0.2 
+Create and activate a virtual environment (recommended), then install the dependency: 
+python -m venv .venv 
+# Windows PowerShell: .venv\\Scripts\\Activate.ps1 
+# Linux/macOS: source .venv/bin/activate 
+python -m pip install -r requirements.txt 
+7. Task 3 — Create the Producer 
+Create producer.py. It generates one synthetic sensor event every second and sends it to the campus-sensors topic. 
+import json 
+import random 
+import time 
+from datetime import datetime, timezone 
+from kafka import KafkaProducer 
+ 
+TOPIC = "campus-sensors" 
+ 
+producer = KafkaProducer( 
+    bootstrap_servers="localhost:9092", 
+    value_serializer=lambda value: json.dumps(value).encode("utf-8"), 
+    acks="all", 
+) 
+ 
+try: 
+    for event_id in range(1, 31): 
+        event = { 
+            "event_id": event_id, 
+            "sensor_id": f"sensor-{random.randint(1, 4):02d}", 
+            "temperature_c": round(random.uniform(18, 42), 2), 
+            "humidity_pct": round(random.uniform(25, 85), 2), 
+            "timestamp": datetime.now(timezone.utc).isoformat(), 
+        } 
+        producer.send(TOPIC, value=event) 
+
+## Page 3
+ 
+4 /3:Page 
+        print("Sent:", event) 
+        time.sleep(1) 
+    producer.flush() 
+finally: 
+    producer.close() 
+Run it in Terminal 1: 
+python producer.py 
+Expected result: 30 JSON events are printed as they are published. Keep a screenshot of the terminal. 
+8. Task 4 — Create the Consumer and Analyze the Stream 
+Create consumer.py. It reads the events, displays each measurement, and flags temperatures of 35°C or higher. 
+import json 
+from kafka import KafkaConsumer 
+ 
+TOPIC = "campus-sensors" 
+ 
+consumer = KafkaConsumer( 
+    TOPIC, 
+    bootstrap_servers="localhost:9092", 
+    auto_offset_reset="earliest", 
+    enable_auto_commit=True, 
+    group_id="tp05-campus-monitor", 
+    value_deserializer=lambda value: json.loads(value.decode("utf-8")), 
+) 
+ 
+print(f"Listening to topic: {TOPIC}") 
+try: 
+    for message in consumer: 
+        event = message.value 
+        temperature = event["temperature_c"] 
+        print( 
+            f'{event["timestamp"]} | {event["sensor_id"]} | ' 
+            f'T={temperature}°C | RH={event["humidity_pct"]}%' 
+        ) 
+        if temperature >= 35: 
+            print("ALERT: High temperature detected!") 
+except KeyboardInterrupt: 
+    print("Consumer stopped by user.") 
+finally: 
+    consumer.close() 
+Open Terminal 2 and start the consumer before running the producer: 
+python consumer.py 
+Then run producer.py in Terminal 1. Observe how the consumer receives messages. Stop the consumer with Ctrl+C after 
+collecting evidence. 
+9. Task 5 — Inspect Kafka Topics 
+Use Kafka command-line utilities inside the running container. The exact path may vary by image version; these commands are 
+for the Apache Kafka image above. 
+docker exec -it tp05-kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --if-not-exists --
+topic campus-sensors --partitions 3 --replication-factor 1 
+docker exec -it tp05-kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic campus-
+sensors 
+docker exec -it tp05-kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list 
+If the topic was created manually, the producer and consumer can use it directly. Record the topic description and explain th e 
+meaning of partitions and replication factor in this single-broker lab. 
+10. Tasks for Further Investigation 
+Change the producer to send 100 events and compare the output. 
+
+## Page 4
+ 
+4 /4:Page 
+Modify the consumer to calculate the running average temperature for all received events. 
+Create a second consumer using a different group_id. Compare its behavior with a second consumer in the same group. 
+Change the topic to have one partition, then three partitions. Describe what changes and what does not change in this single -
+broker setup. 
+Add a field named campus_building to each event and filter events from one building. 
+Optional: save consumed events to a CSV file with columns event_id, sensor_id, temperature_c, humidity_pct, and timestamp. 
+11. Questions for the Report 
+1. What problem does Apache Kafka solve in a data-streaming architecture? 
+2. Define producer, consumer, broker, topic, partition, offset, and consumer group. 
+3. What is the difference between a Kafka topic and a partition? 
+4. Why does the consumer use auto_offset_reset='earliest'? When does this setting apply? 
+5. What is the purpose of the consumer group ID? What happens if a new group ID is used? 
+6. Why is JSON a suitable format for this exercise? Give one limitation. 
+7. Explain how Docker Compose simplifies deployment compared with starting services manually. 
+8. What are the limitations of this single-broker educational setup compared with a production Kafka cluster? 
+9. Attach evidence showing the running container, topic description, producer output, and consumer output. 
+13. Submission Requirements 
+Push the tp05-kafka folder to a GitHub repository. 
+Include compose.yaml, producer.py, consumer.py, requirements.txt, and README.md. 
+Include screenshots of Docker Compose status, topic description, producer output, and consumer output. 
+Submit a short report answering all questions and describing any problems encountered and how they were solved. 
+Do not upload virtual-environment folders, credentials, or unnecessary generated files. 
+14. Cleanup 
+docker compose down 
+To remove the stored Kafka data as well, use the following command only after you no longer need the topic or messages: 
+docker compose down -v 
+Official Documentation 
+Apache Kafka documentation: https://kafka.apache.org/documentation/ 
+Apache Kafka Docker image: https://hub.docker.com/r/apache/kafka 
+kafka-python documentation: https://kafka-python.readthedocs.io/en/master/ 
+Docker Compose documentation: https://docs.docker.com/compose/ 
+ 
+Good luck 

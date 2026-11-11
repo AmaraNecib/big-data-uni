@@ -1,0 +1,38 @@
+{
+  "mode": "teacher",
+  "title": "Teacher's original example",
+  "run_id": "20261110T200122Z-0820ca",
+  "started_utc": "2026-11-10T20:01:22.614109+00:00",
+  "status": "FAILED",
+  "producer": "producer.py",
+  "consumer": "consumer.py",
+  "python": "3.11.14",
+  "expected_events": 30,
+  "checks": [],
+  "events": [],
+  "source_sha256": {
+    "producer.py": "446c3781813913f124644d7d565806da828d169237b1a02df07cf4bacdf132b8",
+    "consumer.py": "33c06cdb6dabb5d9862be5d737921d8c802b19ef598e0e8e7c20e1c366a9791a"
+  },
+  "artifacts": [
+    "consumer.txt",
+    "docker-start.txt",
+    "docker-status.txt",
+    "error.txt",
+    "topic-description.txt"
+  ],
+  "automation_scope": "Fresh events only. A unique report group seeks to the topic end positions captured before this run. An 8-second idle timeout lets the consumer finish. Student source files are not edited. CSV is written inside this run folder.",
+  "topic": "campus-sensors",
+  "group_id": "tp05-report-teacher-20261110T200122Z-0820ca",
+  "building": null,
+  "csv_file": null,
+  "interval_seconds": 1,
+  "start_offsets": {
+    "0": 36,
+    "1": 25,
+    "2": 29
+  },
+  "error": "Consumer could not start. See consumer.txt.",
+  "duration_seconds": 18.73,
+  "finished_utc": "2026-11-10T20:01:41.342930+00:00"
+}

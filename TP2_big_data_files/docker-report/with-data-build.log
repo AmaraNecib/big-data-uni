@@ -1,0 +1,81 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.dataset
+#1 transferring dockerfile: 763B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/amaranecib/sales-bigdata-tp04:1.0
+#2 DONE 0.1s
+
+#3 [stage-0 1/3] FROM docker.io/amaranecib/sales-bigdata-tp04:1.0@sha256:2386d3059bbb6741245900f8ca9ffb1c7697663e04baf09bd7953eabf118971b
+#3 resolve docker.io/amaranecib/sales-bigdata-tp04:1.0@sha256:2386d3059bbb6741245900f8ca9ffb1c7697663e04baf09bd7953eabf118971b 0.0s done
+#3 CACHED
+
+#4 [internal] load build context
+#4 transferring context: 1.59MB 0.1s
+#4 transferring context: 79.96MB 5.2s
+#4 transferring context: 145.31MB 10.4s
+#4 transferring context: 171.44MB 15.4s
+#4 transferring context: 194.64MB 20.4s
+#4 transferring context: 226.83MB 25.5s
+#4 transferring context: 255.83MB 30.8s
+#4 transferring context: 270.09MB 35.8s
+#4 transferring context: 318.37MB 40.8s
+#4 transferring context: 410.01MB 46.0s
+#4 transferring context: 465.70MB 51.1s
+#4 transferring context: 508.80MB 56.3s
+#4 transferring context: 551.21MB 61.4s
+#4 transferring context: 584.94MB 66.4s
+#4 transferring context: 621.55MB 71.5s
+#4 transferring context: 667.24MB 76.6s
+#4 transferring context: 726.37MB 81.7s
+#4 transferring context: 808.57MB 86.8s
+#4 transferring context: 883.03MB 91.8s
+#4 transferring context: 937.48MB 96.8s
+#4 transferring context: 987.16MB 101.9s
+#4 transferring context: 1.01GB 107.0s
+#4 transferring context: 1.05GB 112.2s
+#4 transferring context: 1.08GB 117.3s
+#4 transferring context: 1.10GB 122.3s
+#4 transferring context: 1.11GB 127.4s
+#4 transferring context: 1.12GB 133.4s
+#4 transferring context: 1.13GB 138.7s
+#4 transferring context: 1.14GB 143.8s
+#4 transferring context: 1.14GB 149.0s
+#4 transferring context: 1.16GB 154.5s
+#4 transferring context: 1.19GB 159.6s
+#4 transferring context: 1.24GB 164.7s
+#4 transferring context: 1.29GB 169.8s
+#4 transferring context: 1.35GB 174.9s
+#4 transferring context: 1.45GB 179.9s
+#4 transferring context: 1.54GB 185.1s
+#4 transferring context: 1.61GB 191.0s
+#4 transferring context: 1.63GB 196.0s
+#4 transferring context: 1.70GB 201.2s
+#4 transferring context: 1.73GB 206.2s
+#4 transferring context: 1.75GB 211.2s
+#4 transferring context: 1.79GB 216.3s
+#4 transferring context: 1.83GB 221.4s
+#4 transferring context: 1.86GB 226.7s
+#4 transferring context: 1.88GB 231.7s
+#4 transferring context: 1.95GB 236.8s
+#4 transferring context: 2.02GB 241.9s
+#4 transferring context: 2.09GB 247.0s
+#4 transferring context: 2.14GB 252.0s
+#4 transferring context: 2.20GB 257.6s
+#4 transferring context: 2.28GB 262.7s
+#4 transferring context: 2.34GB 267.9s
+#4 transferring context: 2.41GB 273.0s
+#4 transferring context: 2.48GB 278.4s
+#4 transferring context: 2.52GB 283.5s
+#4 transferring context: 2.55GB 285.7s done
+#4 DONE 285.9s
+
+#5 [stage-0 2/3] COPY --chown=appuser:appuser tp02.py /app/tp02.py
+#5 DONE 7.4s
+
+#6 [stage-0 3/3] RUN --mount=type=bind,source=data/sales_6gb.csv.gz,target=/tmp/sales_6gb.csv.gz     mkdir -p /app/data     && gzip -dc /tmp/sales_6gb.csv.gz > /app/data/sales_6gb.csv     && test "$(wc -c < /app/data/sales_6gb.csv)" = "6463485112"     && chown appuser:appuser /app/data/sales_6gb.csv
+#6 DONE 134.1s
+
+#7 exporting to image
+#7 exporting layers

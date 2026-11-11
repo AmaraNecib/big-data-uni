@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>TP05 | فهم كود Kafka والاستعداد للمناقشة</title>
+<style>
+:root{color-scheme:light;--background:#f6f3ec;--foreground:#202c2b;--card:#fffdf8;--secondary:#eee9df;--muted:#eee9df;--muted-foreground:#586461;--border:#d6d8ce;--primary:#006a5e;--primary-foreground:#fff;--accent:#e2eee7;--accent-foreground:#124f43;--warning:#8e4c13;--warning-surface:#fff0d9;--success:#24623d;--code-background:#eaece6;--ring:#007b6c;--radius:12px;--font-sans:"Noto Sans Arabic",Tahoma,sans-serif;--font-mono:Consolas,"Liberation Mono",monospace}
+:root[data-theme="dark"]{color-scheme:dark;--background:#151d1d;--foreground:#e4e8df;--card:#1e2928;--secondary:#263431;--muted:#263431;--muted-foreground:#b1bdb5;--border:#3b4d47;--primary:#8bdbc2;--primary-foreground:#132a22;--accent:#253c33;--accent-foreground:#b3e4cb;--warning:#f4c07f;--warning-surface:#3e3022;--success:#9ed6ab;--code-background:#172320;--ring:#8bdbc2}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;color:var(--foreground);font:17px/1.95 var(--font-sans)}main{max-width:980px;margin-inline:auto;min-width:0}a{color:var(--primary);text-underline-offset:4px}button{font:inherit;cursor:pointer;color:var(--foreground);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 13px}button:hover{background:var(--accent)}:focus-visible{outline:3px solid var(--ring);outline-offset:4px}header{padding-block:20px 18px;border-bottom:2px solid var(--primary)}.eyebrow{margin:0;color:var(--primary);font-size:13px;font-weight:700;letter-spacing:.04em}h1{font-family:"Noto Naskh Arabic","Traditional Arabic",serif;font-size:clamp(31px,6vw,48px);line-height:1.45;margin:10px 0}h2{font-size:24px;line-height:1.6;margin:6px 0 12px}h3{font-size:19px;margin:25px 0 8px}.lead{font-size:19px;max-width:760px;margin-block:8px}.muted,small{color:var(--muted-foreground)}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-block:18px}nav{display:flex;flex-wrap:wrap;gap:8px;margin-block:18px}nav a{border:1px solid var(--border);padding:5px 12px;border-radius:30px;text-decoration:none;background:var(--card);font-size:14px}.route{border-inline-start:4px solid var(--primary);padding:12px 16px;margin-block:20px;background:var(--accent);border-radius:var(--radius)}.route p{margin:0}p{margin-block:10px}ol,ul{padding-inline-start:25px}li{margin-block:6px}.chapter{border-top:1px solid var(--border);padding-block:18px;scroll-margin-top:16px}.chapter>summary{font-size:23px;font-weight:700;cursor:pointer;line-height:1.65}.chapter>summary small{display:block;font-size:14px;font-weight:400;margin-inline-start:24px}.chapter[open]>summary{margin-bottom:18px}.number{color:var(--primary);font:600 15px var(--font-mono);margin-inline-end:8px}.note,.answer,.example{padding:14px 16px;border-radius:var(--radius);margin-block:16px;background:var(--card);border:1px solid var(--border)}.note{background:var(--accent);border-inline-start:4px solid var(--primary)}.warning{background:var(--warning-surface);border-inline-start-color:var(--warning)}.label{font-size:13px;color:var(--primary);font-weight:700;margin:0 0 8px}.code-label{font:13px var(--font-mono);direction:ltr;unicode-bidi:isolate;text-align:left;color:var(--muted-foreground);margin-top:18px}pre{background:var(--code-background);border:1px solid var(--border);border-radius:var(--radius);padding:16px;overflow:auto;direction:ltr;unicode-bidi:isolate;text-align:left;line-height:1.8;font:14px/1.8 var(--font-mono);tab-size:4;margin:8px 0 18px}pre code{background:none;padding:0;font-size:inherit;white-space:pre}code{font-family:var(--font-mono);font-size:.86em;background:var(--secondary);border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}bdi{unicode-bidi:isolate}pre bdi{white-space:pre}.table-wrap{overflow-x:auto;margin-block:16px;border:1px solid var(--border);border-radius:var(--radius)}table{border-collapse:collapse;width:100%;background:var(--card);font-size:15px}th,td{text-align:start;vertical-align:top;padding:12px;border-bottom:1px solid var(--border)}th{background:var(--secondary);font-weight:700}tr:last-child td{border-bottom:0}th:first-child{min-width:120px}.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;direction:ltr;margin-block:16px}.flow .node{flex:1;min-width:150px;direction:rtl;border:1px solid var(--border);border-radius:var(--radius);background:var(--card);padding:14px;text-align:center}.flow .arrow{align-self:center;color:var(--primary);font-weight:700}.node strong{display:block}.qa{border:1px solid var(--border);border-radius:var(--radius);margin-block:10px;padding:12px 16px;background:var(--card)}.qa>summary{cursor:pointer;font-weight:700;font-size:16px}.qa p{font-size:16px}.exam-answer{border-inline-start:3px solid var(--primary);padding-inline-start:12px}.file-group{padding:12px 0}.file-group+.file-group{border-top:1px dashed var(--border)}.bottom{border-top:2px solid var(--primary);padding-block:20px 30px}.pill{display:inline-block;color:var(--accent-foreground);background:var(--accent);font-size:12px;padding:2px 9px;border-radius:30px}.tiny{font-size:14px}.chapter-content{padding-top:2px}footer{font-size:13px;color:var(--muted-foreground);padding-block:18px}.skip{position:absolute;top:-100px;inset-inline-start:5px}.skip:focus{top:5px;background:var(--card);padding:8px;z-index:5}
+@media(max-width:520px){body{font-size:16px}.chapter>summary{font-size:20px}pre{font-size:12px;padding:12px}th,td{padding:9px}.flow{flex-direction:column}.flow .arrow{transform:rotate(90deg)}.toolbar button{font-size:14px}h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{font-size:11pt;color:#000}.toolbar,nav,.skip{display:none}.chapter{break-before:auto}.qa,pre,.note{break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere}pre code{white-space:pre-wrap}a{color:inherit}details>summary{list-style:none}.table-wrap{overflow:visible}footer{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#consumer">انتقل إلى شرح المستهلك</a>
+<main>
+<header>
+<p class="eyebrow"><bdi dir="ltr">TP05 / Apache Kafka / kafka-python 2.0.2</bdi></p>
+<h1>افهم الكود، ثم اشرحه للأستاذ.</h1>
+<p class="lead">ابدأ بإنشاء <bdi dir="ltr">KafkaConsumer</bdi>. اقرأ كل إعداد، ثم أغلق الشرح وحاول تفسيره بصوتك. هذا الدليل مبني على ملفات مشروعك الحالية، وليس على مثال مختلف.</p>
+<p class="muted">أنت تعرف أساسيات <bdi dir="ltr">Python</bdi>. التركيز هنا على ما تضيفه مكتبة <bdi dir="ltr">Kafka</bdi>، وما يحدث عند تغيير الإعدادات.</p>
+</header>
+<div class="toolbar" aria-label="أدوات القراءة">
+<button id="theme" type="button" aria-pressed="false">تفعيل الوضع الداكن</button>
+<button id="expand" type="button">فتح كل الشروحات</button>
+<button id="print" type="button">طباعة أو حفظ <bdi dir="ltr">PDF</bdi></button>
+</div>
+<nav aria-label="أقسام الدليل">
+<a href="#consumer">المستهلك</a><a href="#producer">المنتج</a><a href="#changes">ماذا أغيّر؟</a><a href="#questions">أسئلة المناقشة</a><a href="#run">طريقة التشغيل</a>
+</nav>
+<div class="route">
+<p><strong>جلسة مراجعة من 25 دقيقة</strong></p>
+<ol><li>اقرأ إعدادات المستهلك والمنتج، 12 دقيقة.</li><li>راجع <bdi dir="ltr">offset</bdi> و<bdi dir="ltr">group_id</bdi> والمثال الحسابي، 8 دقائق.</li><li>اختر خمسة أسئلة وأجب عنها قبل فتح الإجابة، 5 دقائق.</li></ol>
+</div>
+<noscript><p class="note">الشرح والأسئلة يعملان دون <bdi dir="ltr">JavaScript</bdi>. افتح الأقسام يدويًا. أزرار المظهر والطباعة تحتاج تفعيل <bdi dir="ltr">JavaScript</bdi>.</p></noscript>
+
+<details class="chapter" id="map">
+<summary><span class="number">01</span> ما الذي كتبناه فعلًا؟<small>ملفات الأستاذ، التمارين الإضافية، ونسختك الاختيارية.</small></summary>
+<div class="chapter-content">
+<div class="file-group"><h3>المثال الذي قدّمه الأستاذ</h3><p><bdi dir="ltr"><code>producer.py</code></bdi> يرسل 30 حدثًا. <bdi dir="ltr"><code>consumer.py</code></bdi> يستقبل القراءات ويطبع تنبيهًا عند حرارة لا تقل عن 35 درجة.</p></div>
+<div class="file-group"><h3>حلول التمارين الإضافية</h3><p><bdi dir="ltr"><code>producer_extended.py</code></bdi> يرسل 100 حدث ويضيف المبنى. <bdi dir="ltr"><code>consumer_extended.py</code></bdi> يحسب المتوسط ويرشّح مبنى. <bdi dir="ltr"><code>consumer_csv.py</code></bdi> ينفذ تصدير <bdi dir="ltr">CSV</bdi> الاختياري.</p></div>
+<div class="file-group"><h3>الإضافة التي طلبتها أنت</h3><p><bdi dir="ltr"><code>consumer_extended_csv.py</code></bdi> يجمع المراقبة والمتوسط والترشيح مع الحفظ في ملف واحد. الأستاذ لم يطلب اسم هذا الملف أو وجود هذه النسخة المنفصلة.</p></div>
+<p class="note">الأستاذ طلب تعديلات وتجارب، ولم يفرض ملفات باسم <bdi dir="ltr">extended</bdi>. فصلناها حتى يبقى مثاله الأصلي واضحًا.</p>
+<div class="flow" aria-label="المنتج يرسل إلى Kafka ثم المستهلك يقرأ منه">
+<div class="node"><strong><bdi dir="ltr">Producer</bdi></strong>ينشئ حدثًا ويرسله</div><span class="arrow" aria-hidden="true">→</span>
+<div class="node"><strong><bdi dir="ltr">Kafka broker</bdi></strong>يخزّنه في أقسام الموضوع</div><span class="arrow" aria-hidden="true">→</span>
+<div class="node"><strong><bdi dir="ltr">Consumer</bdi></strong>يقرأ ويحلّل أو يحفظ</div>
+</div>
+<p>تصوّرك عن فصل الخدمات صحيح. لكن القراءة لا تحذف الحدث من <bdi dir="ltr">Kafka</bdi>، والاشتراك لا يعني أن البروكر يستدعي دالة في تطبيقك. مكتبة المستهلك تطلب البيانات من البروكر عبر الشبكة، والحلقة تنتظر عندما لا توجد رسائل جديدة.</p>
+</div></details>
+
+<details class="chapter" id="vocabulary">
+<summary><span class="number">02</span> هل هذا حقل أم إعداد أم كائن؟<small>ميّز بين إعدادات <bdi dir="ltr">Kafka</bdi> والبيانات الموجودة داخل الحدث.</small></summary>
+<p class="code-label">consumer.py / Python</p>
+<pre dir="ltr"><code>from kafka import KafkaConsumer
+
+TOPIC = "campus-sensors"
+
+consumer = KafkaConsumer(
+    TOPIC,
+    bootstrap_servers="localhost:9092",
+    group_id="tp05-campus-monitor",
+)</code></pre>
+<div class="table-wrap"><table><thead><tr><th>الاسم</th><th>ما هو؟</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>KafkaConsumer</code></bdi></td><td>صنف، <bdi dir="ltr">class</bdi>، مستورد من مكتبة <bdi dir="ltr">kafka-python</bdi>. ننشئ منه كائنًا يتصل بخادم <bdi dir="ltr">Kafka</bdi>.</td></tr>
+<tr><td><bdi dir="ltr"><code>consumer</code></bdi></td><td>متغير يحمل ذلك الكائن. الاسم من اختيارنا، وليس كلمة محجوزة.</td></tr>
+<tr><td><bdi dir="ltr"><code>TOPIC</code></bdi></td><td>متغير نصي. نمرّره كوسيط موضعي، <bdi dir="ltr">positional argument</bdi>، لاختيار الموضوع.</td></tr>
+<tr><td><bdi dir="ltr"><code>group_id=...</code></bdi></td><td>إعداد نمرّره باسم، <bdi dir="ltr">keyword argument</bdi>. يخص طريقة عمل المستهلك.</td></tr>
+<tr><td><bdi dir="ltr"><code>event["temperature_c"]</code></bdi></td><td>حقل داخل بيانات الحدث نفسه. نحن من اختار اسمه. ليس إعدادًا لمكتبة <bdi dir="ltr">Kafka</bdi>.</td></tr>
+</tbody></table></div>
+<p class="exam-answer">جواب قصير: «أنشأنا كائنًا من <bdi dir="ltr">KafkaConsumer</bdi>، ومرّرنا له اسم الموضوع وإعدادات الاتصال والمجموعة. أمّا الحرارة والمبنى فهما حقول في الرسالة التي يرسلها برنامجنا».</p>
+</details>
+
+<details class="chapter" id="consumer" open>
+<summary><span class="number">03</span> افهم كل إعداد في <bdi dir="ltr">KafkaConsumer</bdi><small>هذا هو الجزء الأهم في كود المستهلك الأصلي.</small></summary>
+<p class="code-label">consumer.py / exact constructor</p>
+<pre dir="ltr"><code>consumer = KafkaConsumer(
+    TOPIC,
+    bootstrap_servers="localhost:9092",
+    auto_offset_reset="earliest",
+    enable_auto_commit=True,
+    group_id="tp05-campus-monitor",
+    value_deserializer=lambda value: json.loads(value.decode("utf-8")),
+)</code></pre>
+<h3>الاشتراك والاتصال</h3>
+<div class="table-wrap"><table><thead><tr><th>الإعداد</th><th>معناه هنا</th><th>ما الذي يمكن تغييره؟</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>TOPIC</code></bdi></td><td>الموضوع الذي نريد قراءته، وقيمته في النسخة الأساسية <bdi dir="ltr"><code>campus-sensors</code></bdi>.</td><td>يمكن اختيار موضوع آخر. لكي تستقبل رسائل المنتج، يجب أن تقرأ الموضوع الذي يرسل إليه فعلًا.</td></tr>
+<tr><td><bdi dir="ltr"><code>bootstrap_servers</code></bdi></td><td>عنوان بروكر نبدأ به اكتشاف عنقود <bdi dir="ltr">Kafka</bdi>. <bdi dir="ltr"><code>localhost</code></bdi> هو الجهاز الذي يعمل عليه برنامج <bdi dir="ltr">Python</bdi>، و<bdi dir="ltr"><code>9092</code></bdi> منفذ العملاء.</td><td>يمكن تمرير عنوان آخر أو قائمة مثل <bdi dir="ltr"><code>["broker1:9092", "broker2:9092"]</code></bdi>. القائمة تساعد على بدء الاتصال، وليست قائمة مواضيع.</td></tr>
+</tbody></table></div>
+<p class="note warning">إذا نقلت برنامج <bdi dir="ltr">Python</bdi> إلى حاوية أخرى، فإن <bdi dir="ltr">localhost</bdi> يشير إلى تلك الحاوية، لا إلى حاوية <bdi dir="ltr">Kafka</bdi>. ستحتاج إعداد شبكة وعنوان <bdi dir="ltr">advertised listener</bdi> مناسبين. تغيير السلسلة النصية وحدها لا يكفي دائمًا.</p>
+<h3>من أين أقرأ؟ وكيف أحفظ التقدم؟</h3>
+<div class="table-wrap"><table><thead><tr><th>الإعداد</th><th>معناه هنا</th><th>بدائل مهمة</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>auto_offset_reset="earliest"</code></bdi></td><td>ابدأ من أقدم سجل ما زال محفوظًا، لكن فقط عندما لا توجد للمجموعة نقطة متابعة صالحة في ذلك القسم.</td><td><bdi dir="ltr"><code>"latest"</code></bdi> يبدأ من نهاية القسم عند الحاجة إلى إعادة تحديد البداية. في <bdi dir="ltr">kafka-python 2.0.2</bdi> هذا هو الافتراضي. القيم الأخرى تجعل غياب نقطة صالحة ينتج خطأ بدل اختيار البداية أو النهاية؛ ليست لازمة للتمرين.</td></tr>
+<tr><td><bdi dir="ltr"><code>enable_auto_commit=True</code></bdi></td><td>تسمح للمكتبة بحفظ نقاط متابعة المجموعة دوريًا. الحفظ لا يحدث بالضرورة بعد كل سطر معالجة.</td><td><bdi dir="ltr"><code>False</code></bdi> يعطّل الحفظ التلقائي. عندها يمكننا استدعاء <bdi dir="ltr"><code>consumer.commit()</code></bdi> بأنفسنا في موضع نختاره بعد المعالجة.</td></tr>
+<tr><td><bdi dir="ltr"><code>group_id</code></bdi></td><td>هوية مجموعة المستهلكين. تُستخدم لتوزيع الأقسام وتخزين نقاط المتابعة المشتركة لهذه المجموعة.</td><td>نفس القيمة تعني تقاسم العمل. قيمة جديدة تعني مجموعة مستقلة. القيمة <bdi dir="ltr"><code>None</code></bdi> تعني عدم استخدام تنسيق المجموعة وحفظ نقاطها بالطريقة المعتادة، وليست مناسبة لمقارنة المجموعات في هذا التمرين.</td></tr>
+</tbody></table></div>
+<p class="note"><strong>أهم تصحيح للامتحان:</strong> <bdi dir="ltr"><code>earliest</code></bdi> لا تعني «ارجع إلى البداية في كل تشغيل». إذا كانت للمجموعة نقطة محفوظة صالحة، نكمل منها حتى لو بقي الإعداد <bdi dir="ltr"><code>earliest</code></bdi>.</p>
+<h3>كيف تتحول الرسالة إلى قاموس؟</h3>
+<pre dir="ltr"><code>value_deserializer=lambda value: json.loads(value.decode("utf-8"))</code></pre>
+<ol><li>تستقبل المكتبة قيمة الرسالة على شكل <bdi dir="ltr">bytes</bdi>.</li><li><bdi dir="ltr"><code>decode("utf-8")</code></bdi> يحول البايتات إلى نص.</li><li><bdi dir="ltr"><code>json.loads(...)</code></bdi> يحول نص <bdi dir="ltr">JSON</bdi> إلى كائن <bdi dir="ltr">Python</bdi>، وهو قاموس في مثالنا.</li></ol>
+<p><bdi dir="ltr"><code>lambda</code></bdi> دالة قصيرة نمرّرها للمكتبة. اسم المتغير <bdi dir="ltr"><code>value</code></bdi> داخلها اختياري. لا تكتب <bdi dir="ltr"><code>value_deserializer=json.loads(...)</code></bdi> على قيمة غير موجودة؛ المطلوب إعطاء المكتبة <em>دالة</em> تستدعيها عند وصول كل رسالة.</p>
+<p>إذا حذفت <bdi dir="ltr"><code>value_deserializer</code></bdi> فستبقى <bdi dir="ltr"><code>message.value</code></bdi> بايتات، ولن يعمل الوصول إليها كقاموس باسم <bdi dir="ltr"><code>"temperature_c"</code></bdi> قبل فكها بنفسك. <bdi dir="ltr">Kafka</bdi> لا يفهم تلقائيًا أن المحتوى <bdi dir="ltr">JSON</bdi>.</p>
+<p class="exam-answer">اشرح الإنشاء في جملة: «المستهلك يشترك في الموضوع المحدد، يبدأ الاتصال عبر البروكر المحلي، يتبع مجموعة المراقبة، ويحوّل قيمة كل رسالة من بايتات إلى قاموس. يقرأ من أقدم بيانات محفوظة فقط إذا لم يجد نقطة متابعة صالحة للمجموعة».</p>
+</details>
+
+<details class="chapter" id="offsets">
+<summary><span class="number">04</span> <bdi dir="ltr">offset</bdi> و<bdi dir="ltr">group_id</bdi> من دون حفظ أعمى<small>ثلاث حالات تحدد هل ستقرأ البيانات القديمة أم الجديدة.</small></summary>
+<h3>ما هو <bdi dir="ltr">offset</bdi>؟</h3>
+<p>موضع سجل داخل قسم واحد، <bdi dir="ltr">partition</bdi>. إذا كانت آخر رسالة عالجتها ذات <bdi dir="ltr"><code>offset=7</code></bdi> فإن نقطة المتابعة بعد إتمامها تكون عادة <bdi dir="ltr"><code>8</code></bdi>، أي موضع القراءة التالي. هذا ليس رقم الرسالة في الموضوع كله.</p>
+<pre dir="ltr"><code>Partition 0:  offset 0 | offset 1 | offset 2
+Partition 1:  offset 0 | offset 1 | offset 2
+
+Last processed offset: 7
+Next committed position: 8</code></pre>
+<p><bdi dir="ltr"><code>event_id</code></bdi> مختلف. إنه حقل ينشئه برنامجنا ويبدأ من 1 في كل تشغيل. لا يضمن كودنا أنه فريد عبر التشغيلات. أمّا <bdi dir="ltr">offset</bdi> فيعيّنه <bdi dir="ltr">Kafka</bdi> داخل القسم.</p>
+<div class="table-wrap"><table><thead><tr><th>الحالة</th><th>من أين يبدأ المستهلك؟</th></tr></thead><tbody>
+<tr><td>مجموعة جديدة مع <bdi dir="ltr"><code>earliest</code></bdi></td><td>من أقدم السجلات التي لم تحذفها سياسة الاحتفاظ.</td></tr>
+<tr><td>مجموعة جديدة مع <bdi dir="ltr"><code>latest</code></bdi></td><td>من نهاية القسم عند تعيين موضع البداية. لن تعيد قراءة السجلات الموجودة قبل ذلك الموضع.</td></tr>
+<tr><td>مجموعة قديمة لها نقطة متابعة صالحة</td><td>من النقطة المحفوظة، سواء كان إعداد إعادة التحديد <bdi dir="ltr"><code>earliest</code></bdi> أو <bdi dir="ltr"><code>latest</code></bdi>.</td></tr>
+<tr><td>نقطة محفوظة لم تعد صالحة، مثل حذف بيانات قديمة</td><td>يُطبَّق إعداد <bdi dir="ltr"><code>auto_offset_reset</code></bdi> لاختيار نقطة جديدة، أو ينتج خطأ إذا لم يكن مسموحًا باختيار بداية أو نهاية.</td></tr>
+</tbody></table></div>
+<h3>لماذا نفس المجموعة لا تعطي كل مستهلك نسخة كاملة؟</h3>
+<pre dir="ltr"><code>Topic: 3 partitions
+Group A:
+    Consumer 1 -> partitions 0, 1
+    Consumer 2 -> partition 2
+
+Group B:
+    Consumer 3 -> partitions 0, 1, 2</code></pre>
+<p>هذا مثال لتوزيع ممكن، وليس توزيعًا ثابتًا. داخل المجموعة الواحدة يُسنَد القسم إلى مستهلك واحد كحد أقصى في الوقت نفسه. المجموعة الثانية تستطيع قراءة البيانات نفسها بصورة مستقلة. إذا كان عندك قسم واحد ومستهلكان في المجموعة، يبقى أحدهما بلا قسم.</p>
+<p class="note warning">فتح مستهلكين بنفس <bdi dir="ltr">group_id</bdi> بهدف أن يستقبل كلاهما كل الرسائل اختيار خاطئ. استخدم مجموعتين مختلفتين لهذا الغرض. وإذا أردت إعادة التجربة من البداية، اختر اسم مجموعة جديدًا بدل حذف بيانات البروكر.</p>
+<h3>هل قراءة الحدث أو ترشيحه تحذفه؟</h3>
+<p>لا. القراءة وتغيير نقاط المتابعة لا يحذفان السجل من الموضوع. وسياسة الاحتفاظ مستقلة عن القراءة. كذلك <bdi dir="ltr"><code>continue</code></bdi> في مرشح المبنى يعني أن هذا المستهلك تخطى المعالجة اللاحقة، لا أن <bdi dir="ltr">Kafka</bdi> حذف الرسالة أو أعاد توجيهها إلى مجموعة أخرى.</p>
+</details>
+
+<details class="chapter" id="producer">
+<summary><span class="number">05</span> افهم <bdi dir="ltr">KafkaProducer</bdi> والإرسال<small>العنوان، تحويل البيانات، التأكيد، ثم <bdi dir="ltr">send</bdi> و<bdi dir="ltr">flush</bdi>.</small></summary>
+<p class="code-label">producer.py / exact constructor</p>
+<pre dir="ltr"><code>producer = KafkaProducer(
+    bootstrap_servers="localhost:9092",
+    value_serializer=lambda value: json.dumps(value).encode("utf-8"),
+    acks="all",
+)</code></pre>
+<div class="table-wrap"><table><thead><tr><th>الإعداد</th><th>المعنى</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>bootstrap_servers</code></bdi></td><td>نفس فكرة المستهلك، عنوان البداية لاكتشاف البروكرات والأقسام. ليس اسم الموضوع.</td></tr>
+<tr><td><bdi dir="ltr"><code>value_serializer</code></bdi></td><td>دالة تحول قيمة الرسالة من قاموس إلى نص <bdi dir="ltr">JSON</bdi> ثم إلى بايتات. هي الاتجاه العكسي لـ <bdi dir="ltr"><code>value_deserializer</code></bdi>.</td></tr>
+<tr><td><bdi dir="ltr"><code>acks="all"</code></bdi></td><td>ينتظر تأكيد القائد وكل النسخ الموجودة حاليًا في مجموعة النسخ المتزامنة، <bdi dir="ltr">ISR</bdi>، وفق إعدادات البروكر. لا يعني كل بروكر في العنقود.</td></tr>
+</tbody></table></div>
+<h3>قارن قيم <bdi dir="ltr">acks</bdi></h3>
+<div class="table-wrap"><table><thead><tr><th>القيمة</th><th>ما الذي ينتظره المنتج؟</th><th>المقابل</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>acks=0</code></bdi></td><td>لا ينتظر تأكيد البروكر.</td><td>لا يعرف من التأكيد أن البروكر سجّل الرسالة. قد يقل انتظار التأكيد، لكن ذلك ليس ضمان أداء أو تسليم.</td></tr>
+<tr><td><bdi dir="ltr"><code>acks=1</code></bdi></td><td>تأكيد قائد القسم.</td><td>لا ينتظر لحاق النسخ الأخرى. هذه القيمة الافتراضية في نسختنا <bdi dir="ltr">2.0.2</bdi>.</td></tr>
+<tr><td><bdi dir="ltr"><code>acks="all"</code></bdi></td><td>تأكيد النسخ المتزامنة المطلوبة.</td><td>حماية أفضل عند وجود تكرار وإعدادات مناسبة. في مختبرنا توجد نسخة واحدة فقط، لذلك لا توجد حماية من خسارة القرص الوحيد.</td></tr>
+</tbody></table></div>
+<p class="note warning"><bdi dir="ltr"><code>acks="all"</code></bdi> لا تعني أن المستهلك قرأ الرسالة، ولا أنها حُفظت في <bdi dir="ltr">CSV</bdi>، ولا أنها ستُعالج مرة واحدة فقط. إنها تخص تأكيد الكتابة في <bdi dir="ltr">Kafka</bdi>.</p>
+<h3>أين نختار الموضوع؟</h3>
+<pre dir="ltr"><code>producer.send(TOPIC, value=event)
+print("Sent:", event)
+time.sleep(1)
+
+producer.flush()</code></pre>
+<p>لا نمرّر الموضوع إلى مُنشئ <bdi dir="ltr"><code>KafkaProducer</code></bdi> في هذا الكود. نحدده في كل استدعاء <bdi dir="ltr"><code>send</code></bdi>، ولذلك يستطيع منتج واحد الإرسال إلى مواضيع مختلفة.</p>
+<ol><li><bdi dir="ltr"><code>send(...)</code></bdi> يضع الرسالة في مسار الإرسال ويعيد كائن متابعة، <bdi dir="ltr">Future</bdi>. الإرسال الشبكي المعتاد غير متزامن، لكن الاستدعاء قد ينتظر معلومات الموضوع أو مساحة الذاكرة المؤقتة.</li><li><bdi dir="ltr"><code>print("Sent:", event)</code></bdi> في المثال يثبت وصول البرنامج إلى سطر الطباعة، ولا يثبت وحده حصول تأكيد ناجح من البروكر.</li><li><bdi dir="ltr"><code>sleep(1)</code></bdi> يحاكي قراءة حساس كل ثانية. ليس شرطًا لعمل <bdi dir="ltr">Kafka</bdi>.</li><li><bdi dir="ltr"><code>flush()</code></bdi> ينتظر اكتمال عمليات الإرسال السابقة، بالنجاح أو الخطأ. للحصول على نتيجة رسالة محددة وأخطاء تسليمها، افحص الـ <bdi dir="ltr">Future</bdi>.</li></ol>
+<p class="code-label">Optional learning example / not in the teacher's original script</p>
+<pre dir="ltr"><code>future = producer.send(TOPIC, value=event)
+metadata = future.get(timeout=10)
+print(metadata.topic, metadata.partition, metadata.offset)</code></pre>
+<p>هنا ننتظر نتيجة هذه الرسالة حتى 10 ثوانٍ، ويظهر خطأ إذا فشلت أو انتهت المهلة. مع <bdi dir="ltr"><code>acks="all"</code></bdi> تعطينا النتيجة الناجحة معلومات الموضع الذي قبله البروكر. الانتظار لكل رسالة يجعل هذا المثال أقل لا تزامنًا من إرسال عدة رسائل ثم متابعة نتائجها.</p>
+<h3>لماذا <bdi dir="ltr">close</bdi> داخل <bdi dir="ltr">finally</bdi>؟</h3>
+<p><bdi dir="ltr"><code>finally</code></bdi> يحاول إغلاق المنتج وتحرير اتصالاته حتى لو وقع استثناء. وفي المستهلك يوقف العميل ويغلق اتصالاته. هذا تنظيف للموارد، وليس أمرًا لحذف الموضوع أو إيقاف خادم <bdi dir="ltr">Kafka</bdi>.</p>
+</details>
+
+<details class="chapter" id="json">
+<summary><span class="number">06</span> تتبّع حدثًا واحدًا من القاموس إلى التحليل<small>لماذا نستخدم <bdi dir="ltr">dumps</bdi> و<bdi dir="ltr">loads</bdi> و<bdi dir="ltr">encode</bdi> و<bdi dir="ltr">decode</bdi>؟</small></summary>
+<pre dir="ltr"><code># Producer: Python dict -> JSON text -> bytes
+{"sensor_id": "sensor-01", "temperature_c": 35}
+json.dumps(event)
+json.dumps(event).encode("utf-8")
+
+# Consumer: bytes -> JSON text -> Python dict
+value.decode("utf-8")
+json.loads(value.decode("utf-8"))</code></pre>
+<p>هذا مثال لفهم اتجاه التحويل، وليس كتلة تنسخها كما هي إلى المنتج. المكتبة تستدعي دوال التحويل التي مرّرناها عند إرسال كل قيمة أو استقبالها.</p>
+<p class="code-label">consumer.py / message versus event</p>
+<pre dir="ltr"><code>for message in consumer:
+    event = message.value
+    temperature = event["temperature_c"]</code></pre>
+<div class="table-wrap"><table><thead><tr><th>ما نقرأه</th><th>ما الذي يحتويه؟</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>message.value</code></bdi></td><td>قيمة الحدث بعد تطبيق دالة فك التحويل، قاموس في مشروعنا.</td></tr>
+<tr><td><bdi dir="ltr"><code>message.topic</code></bdi></td><td>اسم الموضوع الذي جاءت منه الرسالة.</td></tr>
+<tr><td><bdi dir="ltr"><code>message.partition</code></bdi></td><td>رقم القسم داخل الموضوع.</td></tr>
+<tr><td><bdi dir="ltr"><code>message.offset</code></bdi></td><td>الموضع داخل ذلك القسم.</td></tr>
+<tr><td><bdi dir="ltr"><code>message.key</code></bdi></td><td>مفتاح الرسالة، أو <bdi dir="ltr"><code>None</code></bdi> إذا لم نرسل مفتاحًا كما في منتجنا الحالي.</td></tr>
+</tbody></table></div>
+<p>يمكن عرض البيانات الوصفية أثناء التجربة:</p>
+<pre dir="ltr"><code>print(message.topic, message.partition, message.offset)
+print(message.value)</code></pre>
+<p>إذا أرسلت قيمة ليست <bdi dir="ltr">JSON</bdi> صالحًا، يمكن أن يفشل <bdi dir="ltr"><code>json.loads</code></bdi>. وإذا غاب حقل الحرارة، يمكن أن يظهر <bdi dir="ltr"><code>KeyError</code></bdi>. شيفرتنا التعليمية تفترض رسائل الحساسات بالصيغة الصحيحة، ولا تتحقق من مخطط بيانات كامل.</p>
+<p class="exam-answer">«فصلنا بيانات التطبيق عن بيانات النقل. <bdi dir="ltr">Kafka</bdi> يعطينا الموضوع والقسم والموضع، بينما القاموس يحتوي حقولًا اخترناها نحن مثل الحرارة والحساس والمبنى».</p>
+</details>
+
+<details class="chapter" id="loop">
+<summary><span class="number">07</span> ماذا تفعل حلقة الاستقبال وهي تنتظر؟<small>الاشتراك لا يشغّل الكود قبل أن تصل البيانات.</small></summary>
+<pre dir="ltr"><code>for message in consumer:
+    event = message.value
+    # Process one received record here.</code></pre>
+<p>المكتبة تخفي تفاصيل طلب الدفعات وانتظار الشبكة خلف هذا التكرار. برنامجنا لا يفحص ملفًا على القرص في حلقة مشغولة، ولا يفتح اتصالًا جديدًا يدويًا لكل رسالة. لكنه يظل مستهلكًا يطلب البيانات وينتظرها، وليس دالة يستدعيها البروكر مباشرة.</p>
+<p>عند عدم وجود بيانات جديدة، ينتظر التكرار افتراضيًا. لذلك عدم ظهور سطور جديدة لا يعني أن البرنامج متجمد. كما أن وصول المنتج إلى 100 حدث لا يرسل للمستهلك تلقائيًا أمر «انتهى الموضوع»؛ الموضوع يمكن أن يستقبل بيانات أخرى لاحقًا.</p>
+<pre dir="ltr"><code>except KeyboardInterrupt:
+    print("Consumer stopped by user.")
+finally:
+    consumer.close()</code></pre>
+<p><bdi dir="ltr">Ctrl+C</bdi> يولّد <bdi dir="ltr"><code>KeyboardInterrupt</code></bdi>. نطبع رسالة ثم نغلق العميل. يمكن أثناء الاختبار إضافة الإعداد التالي إلى المُنشئ:</p>
+<pre dir="ltr"><code>consumer_timeout_ms=10000</code></pre>
+<p>يجعل التكرار يتوقف بعد فترة انتظار من دون سجل جديد، نحو 10 ثوانٍ بحسب نشاط العميل والاتصال. ليس مهلة لعمر العملية كلها، وليس حدًا لعدد الرسائل، ولا إعدادًا موجودًا في ملفاتنا الحالية.</p>
+<p class="note">الاحتفاظ بالرسائل يسمح لخدمة متوقفة باللحاق لاحقًا، بشرط بقاء البيانات ووجود نقطة متابعة مناسبة. في مختبرنا إذا توقف البروكر الوحيد فلن يخدم المنتجين أو المستهلكين أثناء التوقف. بقاء البيانات على القرص لا يعني استمرار توفر الخدمة.</p>
+</details>
+
+<details class="chapter" id="analysis">
+<summary><span class="number">08</span> المتوسط والترشيح و<bdi dir="ltr">CSV</bdi>: اشرح ترتيب السطور<small>الكود بسيط، لكن نقل <bdi dir="ltr">continue</bdi> يغيّر معنى المتوسط.</small></summary>
+<p class="code-label">consumer_extended.py and consumer_extended_csv.py</p>
+<pre dir="ltr"><code>total_temperature = 0
+event_count = 0
+
+# Inside the consumer loop:
+total_temperature += temperature
+event_count += 1
+average = total_temperature / event_count
+
+if BUILDING is not None and event["campus_building"] != BUILDING:
+    continue</code></pre>
+<p>في كودنا نحدّث المجموع والعدد قبل المرشح. إذن المتوسط لجميع الأحداث المستلمة في <strong>هذا التشغيل</strong>. أما الطباعة والتنبيه وكتابة <bdi dir="ltr">CSV</bdi> في النسخة المجمعة فتحدث فقط بعد اجتياز المرشح.</p>
+<div class="example">
+<p class="label">مثال توضيحي، وليس نتائج تشغيل مسجلة</p>
+<div class="table-wrap"><table><thead><tr><th>الحدث</th><th>الحرارة</th><th>المتوسط بعد وصوله</th><th>مع مرشح <bdi dir="ltr">Science</bdi></th></tr></thead><tbody>
+<tr><td><bdi dir="ltr">Science</bdi></td><td>20</td><td>20</td><td>يُعرض ويُحفظ.</td></tr>
+<tr><td><bdi dir="ltr">Library</bdi></td><td>40</td><td>30</td><td>لا يُعرض ولا يُحفظ، لكنه يدخل في المتوسط.</td></tr>
+<tr><td><bdi dir="ltr">Science</bdi></td><td>36</td><td>32</td><td>يُعرض ويُحفظ ويولّد تنبيهًا.</td></tr>
+</tbody></table></div>
+<p>المجموع 96، والعدد 3، والمتوسط 32. عدد صفوف البيانات المحفوظة 2، وليس 3. متوسط صفّي الملف وحدهما هو 28، لذلك لا تخلط بين متوسط كل المستلم ومتوسط البيانات المرشّحة.</p>
+</div>
+<p><strong>إذا طلب الأستاذ متوسط مبنى <bdi dir="ltr">Science</bdi> فقط:</strong> انقل شرط الترشيح و<bdi dir="ltr"><code>continue</code></bdi> إلى ما قبل تحديث المجموع والعدد. عندها سيتغير معنى العداد أيضًا ليحسب الأحداث المقبولة فقط.</p>
+<p class="code-label">consumer_extended_csv.py / CSV block</p>
+<pre dir="ltr"><code>with open(CSV_FILE, "w", newline="", encoding="utf-8") as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerow([
+        "event_id", "sensor_id", "temperature_c", "humidity_pct", "timestamp"
+    ])
+
+    # After receiving a record and passing the building filter:
+    writer.writerow([
+        event["event_id"],
+        event["sensor_id"],
+        event["temperature_c"],
+        event["humidity_pct"],
+        event["timestamp"],
+    ])
+    csv_file.flush()</code></pre>
+<p>هذه كتلة مختصرة لشرح الكتابة؛ في الملف الفعلي يقع صف البيانات داخل حلقة استقبال الرسائل.</p>
+<div class="table-wrap"><table><thead><tr><th>السطر أو القيمة</th><th>لماذا؟</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>"w"</code></bdi></td><td>ينشئ الملف أو يستبدل محتواه عند كل تشغيل. يمكن أن يمحو تصديرًا سابقًا حتى إن لم تصل رسائل جديدة.</td></tr>
+<tr><td><bdi dir="ltr"><code>newline=""</code></bdi></td><td>يترك التعامل مع نهايات الأسطر لوحدة <bdi dir="ltr">csv</bdi>، ويتجنب مشكلات مثل الأسطر الفارغة الإضافية على <bdi dir="ltr">Windows</bdi>.</td></tr>
+<tr><td><bdi dir="ltr"><code>encoding="utf-8"</code></bdi></td><td>يحدد ترميز النص داخل الملف.</td></tr>
+<tr><td><bdi dir="ltr"><code>writerow(...)</code></bdi></td><td>يكتب سطر العناوين أو قيم حدث واحد بالترتيب المحدد. وحدة <bdi dir="ltr">csv</bdi> تتعامل مع الفواصل والاقتباسات.</td></tr>
+<tr><td><bdi dir="ltr"><code>csv_file.flush()</code></bdi></td><td>يدفع النص من مخزن ملف <bdi dir="ltr">Python</bdi> المؤقت إلى نظام التشغيل. ليس تأكيد <bdi dir="ltr">Kafka</bdi>، ولا يضمن وحده مقاومة انقطاع الطاقة.</td></tr>
+</tbody></table></div>
+<p><bdi dir="ltr"><code>with</code></bdi> يغلق الملف عند الخروج من الكتلة، حتى مع الاستثناء. المتغيران المجموع والعدد يرجعان إلى الصفر في كل تشغيل. وإذا أكملت المجموعة من نقطة قديمة محفوظة، فالمتوسط الجديد لا يشمل تلقائيًا ما قرأته في تشغيل سابق.</p>
+<p class="note warning">لا تغيّر <bdi dir="ltr"><code>"w"</code></bdi> إلى <bdi dir="ltr"><code>"a"</code></bdi> وتعتبر المهمة منتهية. الإلحاق يحافظ على الصفوف القديمة، لكن الكود الحالي سيكتب العناوين مرة أخرى، وقد تتكرر الأحداث عند إعادة القراءة. ولإعادة تصدير كامل الآن، استخدم <bdi dir="ltr">GROUP_ID</bdi> جديدًا واسم ملف جديدًا.</p>
+</details>
+
+<details class="chapter" id="changes">
+<summary><span class="number">09</span> ماذا يمكنني تغييره؟ وما الأثر؟<small>فرّق بين متغيرات برنامجنا وإعدادات مكتبة <bdi dir="ltr">Kafka</bdi>.</small></summary>
+<h3>متغيرات تطبيقنا</h3>
+<div class="table-wrap"><table><thead><tr><th>المتغير</th><th>قيمته في النسخة الإضافية</th><th>الأثر والتنسيق المطلوب</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>TOPIC</code></bdi></td><td><bdi dir="ltr"><code>"campus-sensors-extended"</code></bdi></td><td>اختيار قناة بيانات أخرى. غيّره في المنتج والمستهلك اللذين تريد وصلهما، وأنشئ الموضوع المطلوب.</td></tr>
+<tr><td><bdi dir="ltr"><code>EVENT_COUNT</code></bdi></td><td><bdi dir="ltr"><code>100</code></bdi></td><td>عدد دورات الإرسال. يمكن مثلًا جعله 10 لتجربة أقصر.</td></tr>
+<tr><td><bdi dir="ltr"><code>INTERVAL</code></bdi></td><td><bdi dir="ltr"><code>1</code></bdi></td><td>الثواني بين الإرسالات. <bdi dir="ltr"><code>0.1</code></bdi> يعني تأخيرًا مقداره عُشر ثانية، وليس تغييرًا في سياسة الاحتفاظ أو مهلة الاستقبال.</td></tr>
+<tr><td><bdi dir="ltr"><code>BUILDING</code></bdi></td><td><bdi dir="ltr"><code>"Science"</code></bdi></td><td>يمكن اختيار مبنى آخر أو <bdi dir="ltr"><code>None</code></bdi> دون اقتباسات لتعطيل المرشح. النص <bdi dir="ltr"><code>"None"</code></bdi> ليس القيمة نفسها.</td></tr>
+<tr><td><bdi dir="ltr"><code>CSV_FILE</code></bdi></td><td><bdi dir="ltr"><code>"sensor_events_extended.csv"</code></bdi></td><td>اسم ناتج النسخة المجمعة. المسار النسبي يتبع مجلد تشغيل الطرفية. لا ترسل نتيجتين إلى الملف نفسه من عمليتين.</td></tr>
+</tbody></table></div>
+<h3>إعدادات أو تغييرات مرتبطة بـ <bdi dir="ltr">Kafka</bdi></h3>
+<div class="table-wrap"><table><thead><tr><th>ما تغيّره</th><th>ما الذي يتغير؟</th><th>ما الذي لا يتغير تلقائيًا؟</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>GROUP_ID</code></bdi></td><td>متغير في برنامجنا نمرره إلى إعداد المكتبة <bdi dir="ltr"><code>group_id</code></bdi>. اسم جديد ينشئ هوية قراءة مستقلة.</td><td>لا ينشئ نسخة أخرى من بيانات الموضوع ولا يغير الموضوع نفسه.</td></tr>
+<tr><td><bdi dir="ltr"><code>auto_offset_reset</code></bdi></td><td>يختار البداية عند غياب نقطة متابعة صالحة.</td><td>لا يلغي النقاط المحفوظة الصالحة.</td></tr>
+<tr><td><bdi dir="ltr"><code>enable_auto_commit</code></bdi></td><td>يغيّر من يتحكم في حفظ نقاط المجموعة.</td><td>لا يحول حفظ <bdi dir="ltr">CSV</bdi> ونقاط <bdi dir="ltr">Kafka</bdi> إلى عملية ذرّية واحدة.</td></tr>
+<tr><td>عدد <bdi dir="ltr">partitions</bdi></td><td>تغيّره بأداة إدارة الموضوع. يسمح بتوازي أكبر داخل المجموعة.</td><td>لا تضيف بروكرًا، ولا ترفع عامل التكرار، ولا تعيد توزيع السجلات القديمة بين الأقسام.</td></tr>
+<tr><td>شرط <bdi dir="ltr"><code>temperature &gt;= 35</code></bdi></td><td>يمكن تغيير 35 لتعديل عتبة التنبيه.</td><td>هذا منطق تطبيق، وليس إعدادًا يرشّح به البروكر الرسائل.</td></tr>
+</tbody></table></div>
+<h3>إعدادات مفيدة لفهم أسئلة المتابعة</h3>
+<p class="tiny muted">ليست موجودة في ملفاتنا الحالية. القيم الافتراضية التالية تم التحقق منها في المكتبة المثبتة <bdi dir="ltr">kafka-python 2.0.2</bdi>، وقد تختلف في نسخ أخرى.</p>
+<div class="table-wrap"><table><thead><tr><th>الإعداد</th><th>الافتراضي هنا</th><th>الفكرة</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>auto_commit_interval_ms</code></bdi></td><td><bdi dir="ltr"><code>5000</code></bdi></td><td>الفاصل المستهدف للحفظ التلقائي، 5 ثوانٍ. ليس وعدًا بحفظ كل حدث فور معالجته.</td></tr>
+<tr><td><bdi dir="ltr"><code>consumer_timeout_ms</code></bdi></td><td>انتظار غير محدود</td><td>يتحكم في انتهاء التكرار عند عدم وصول سجلات، وليس احتفاظ البروكر بها.</td></tr>
+<tr><td><bdi dir="ltr"><code>max_poll_records</code></bdi></td><td><bdi dir="ltr"><code>500</code></bdi></td><td>حد عدد السجلات التي يعيدها استدعاء <bdi dir="ltr">poll</bdi> واحد. لا يعني أن البرنامج سيقرأ 500 فقط ثم ينتهي.</td></tr>
+<tr><td><bdi dir="ltr"><code>retries</code></bdi></td><td><bdi dir="ltr"><code>0</code></bdi> في المنتج</td><td>محاولات إعادة الإرسال عند أخطاء قابلة للمحاولة. زيادتها لا تمنع التكرار تلقائيًا، وقد تؤثر في ترتيب السجلات بحسب بقية الإعدادات.</td></tr>
+</tbody></table></div>
+<p>لا تنسخ إعدادات عميل حديث إلى نسختنا القديمة دون التحقق من دعمها. هذا الدليل لا يدّعي أن منتجنا يفعّل <bdi dir="ltr">idempotence</bdi> أو معاملات <bdi dir="ltr">transactions</bdi>.</p>
+</details>
+
+<details class="chapter" id="keys">
+<summary><span class="number">10</span> المفتاح والترتيب وحدود الضمانات<small>لأسئلة الأستاذ عن الأقسام والتكرار وتعطل الخدمات.</small></summary>
+<h3>هل يجب إرسال <bdi dir="ltr">key</bdi>؟</h3>
+<p>لا، ليس مطلوبًا في المثال. منتجنا يرسل <bdi dir="ltr"><code>value</code></bdi> فقط، ويترك اختيار القسم للمكتبة. إذا أردت تجميع أحداث الحساس نفسه في قسم ثابت ما دام عدد الأقسام وطريقة التوزيع لم يتغيرا، يمكن استخدام مفتاح:</p>
+<pre dir="ltr"><code>producer.send(
+    TOPIC,
+    key=event["sensor_id"].encode("utf-8"),
+    value=event,
+)</code></pre>
+<p>هذا مثال إضافي وليس موجودًا في ملفاتنا. لأننا لم نعرّف <bdi dir="ltr"><code>key_serializer</code></bdi>، حوّلنا المفتاح إلى بايتات بأنفسنا. الترتيب المقصود يكون داخل القسم، وليس ترتيبًا عامًا لكل الحساسات. وزيادة عدد الأقسام قد تغيّر القسم الذي يختاره نفس المفتاح للأحداث الجديدة.</p>
+<h3>متى قد تتكرر المعالجة؟</h3>
+<p>إذا كتب المستهلك صفًا في <bdi dir="ltr">CSV</bdi> ثم توقف قبل حفظ نقطة المتابعة، قد يعيد قراءة الحدث عند التشغيل التالي. حفظ الملف وحفظ النقطة عمليتان منفصلتان. لهذا لا نقول إن الكود يضمن <bdi dir="ltr">exactly-once</bdi>.</p>
+<p>إذا أردت تحكمًا يدويًا، يمكن تعطيل الحفظ التلقائي وحفظ التقدم بعد المعالجة. لكن ذلك وحده لا يجعل الأثر الخارجي ونقطة <bdi dir="ltr">Kafka</bdi> عملية ذرية. الحلول الإنتاجية تحتاج تصميمًا لمنع تكرار الأثر أو معاملات متوافقة.</p>
+<h3>ماذا لو توقفت خدمة؟</h3>
+<div class="table-wrap"><table><thead><tr><th>العطل</th><th>ما المتوقع؟</th></tr></thead><tbody>
+<tr><td>توقف المستهلك فقط</td><td>يمكن أن يستمر المنتج والبروكر. عندما يعود المستهلك يستطيع اللحاق بالبيانات المتبقية وفق المجموعة ونقاطها وسياسة الاحتفاظ.</td></tr>
+<tr><td>توقف المنتج فقط</td><td>المستهلك يستطيع قراءة ما هو محفوظ ثم ينتظر رسائل جديدة.</td></tr>
+<tr><td>توقف البروكر الوحيد</td><td>لا يوجد بروكر بديل لخدمة هذا المختبر. قد تظهر أخطاء اتصال أو انتهاء مهلة. المنتج ليس مخزنًا دائمًا بديلًا للبروكر.</td></tr>
+<tr><td>حذف وحدة التخزين أو خسارة القرص الوحيد</td><td>عامل التكرار 1 لا يوفر نسخة مستقلة لاستعادة البيانات. وحدة التخزين الدائمة تحمي من إزالة الحاوية وحدها، وليست نسخة احتياطية.</td></tr>
+</tbody></table></div>
+<p class="note">في إعدادنا يوجد احتفاظ لمدة 24 ساعة وحدود حجم لكل قسم، مع تنظيف غير فوري. لا تقل إن <bdi dir="ltr">Kafka</bdi> يحتفظ بالرسائل إلى الأبد أو إلى أن يقرأها الجميع. قد تنتهي صلاحية البيانات قبل عودة مستهلك متوقف طويلًا.</p>
+</details>
+
+<details class="chapter" id="questions">
+<summary><span class="number">11</span> 20 سؤالًا متوقعًا للمناقشة<small>حاول الإجابة قبل فتح كل سؤال. هذه احتمالات للمراجعة، لا أسئلة امتحان مؤكدة.</small></summary>
+<h3>المجموعة الأولى: وصف ما كتبته</h3>
+<details class="qa"><summary>1. اشرح مشروعك في نصف دقيقة.</summary><p class="exam-answer">«شغّلت بروكر <bdi dir="ltr">Kafka</bdi> واحدًا باستخدام <bdi dir="ltr">Docker Compose</bdi> في وضع <bdi dir="ltr">KRaft</bdi>. المنتج يحاكي حساسات ويرسل بيانات <bdi dir="ltr">JSON</bdi> إلى موضوع. المستهلك يقرأ الموضوع ويعرض القراءات والتنبيهات. وفي الإضافات أرسلنا 100 حدث وأضفنا متوسطًا ومرشح مبنى وتصدير <bdi dir="ltr">CSV</bdi>».</p></details>
+<details class="qa"><summary>2. لماذا عندنا منتج ومستهلك بدل برنامج واحد؟</summary><p>المنتج مسؤول عن إرسال الحدث، والمستهلك عن استخدامه. لا يحتاج المنتج إلى معرفة من يقرأ البيانات أو هل هو متصل الآن. يمكن تشغيلهما في عمليتين منفصلتين، ويمكن إضافة مستهلكين آخرين دون تعديل المنتج.</p></details>
+<details class="qa"><summary>3. ما الذي يأخذه <bdi dir="ltr">KafkaConsumer</bdi>؟</summary><p>اسم موضوع أو عدة أسماء مواضيع كوسائط موضعية، ثم إعدادات مسماة مثل عنوان البروكر، المجموعة، سياسة اختيار بداية القراءة، ودالة فك قيمة الرسالة. في مثالنا نمرّر موضوعًا واحدًا.</p><p class="tiny muted">اشرح وظيفة كل وسيط في الكتلة المعروضة أعلاه.</p></details>
+<details class="qa"><summary>4. ما الفرق بين إعداد <bdi dir="ltr">group_id</bdi> وحقل <bdi dir="ltr">sensor_id</bdi>؟</summary><p><bdi dir="ltr"><code>group_id</code></bdi> إعداد للمستهلك يحدد مجموعة القراءة. <bdi dir="ltr"><code>sensor_id</code></bdi> حقل داخل بيانات الحدث يحدد الحساس الذي نحاكيه. الأول تنظيمي في <bdi dir="ltr">Kafka</bdi>، والثاني منطق بيانات اخترناه نحن.</p></details>
+
+<h3>المجموعة الثانية: الاتصال والتحويل</h3>
+<details class="qa"><summary>5. لماذا <bdi dir="ltr">localhost:9092</bdi>؟ وهل <bdi dir="ltr">9093</bdi> بديل؟</summary><p>لأن برنامجنا يعمل على الجهاز نفسه الذي يعرض منفذ بروكر <bdi dir="ltr">Docker</bdi>. المنفذ 9092 مخصص لاتصالات العملاء في إعدادنا. أما 9093 فمخصص لاتصال المتحكم، <bdi dir="ltr">controller</bdi>، ولا نستبدله عشوائيًا بمنفذ العميل.</p></details>
+<details class="qa"><summary>6. لماذا <bdi dir="ltr">serializer</bdi> في المنتج و<bdi dir="ltr">deserializer</bdi> في المستهلك؟</summary><p>المنتج يبدأ بقاموس ويحتاج إلى إرساله كبايتات. المستهلك يستقبل بايتات ويحتاج إلى قاموس ليقرأ حقول الحرارة. لذلك نستخدم <bdi dir="ltr"><code>dumps + encode</code></bdi> عند الإرسال و<bdi dir="ltr"><code>decode + loads</code></bdi> عند الاستقبال.</p></details>
+<details class="qa"><summary>7. هل <bdi dir="ltr">Kafka</bdi> يفسّر <bdi dir="ltr">JSON</bdi> تلقائيًا؟</summary><p>لا. يخزن قيم الرسائل كبايتات ولا يفرض على مثالنا مخطط حقول. برنامجنا اختار <bdi dir="ltr">JSON</bdi> وعرّف دوال التحويل. يمكن للتطبيق اختيار صيغة أخرى إذا اتفق المنتج والمستهلك عليها.</p></details>
+<details class="qa"><summary>8. لماذا المستهلك يعمل ولا يطبع شيئًا؟</summary><p>قد لا توجد رسائل جديدة، أو قد تكون المجموعة قد قرأت الرسائل القديمة، أو أن الموضوع غير مطابق. وفي النسخة المرشحة قد تصل رسائل من مبانٍ أخرى فلا تُعرض. نتحقق من البروكر والموضوع والمجموعة والمرشح، ولا نغيّر كل الإعدادات دفعة واحدة.</p></details>
+
+<h3>المجموعة الثالثة: نقاط المتابعة والمجموعات</h3>
+<details class="qa"><summary>9. هل <bdi dir="ltr">earliest</bdi> يعيد كل الرسائل في كل تشغيل؟</summary><p>لا. يطبق فقط عند غياب نقطة متابعة صالحة. المجموعة ذات النقطة الصالحة تكمل منها. لإعادة القراءة بسهولة نستخدم مجموعة جديدة مع <bdi dir="ltr"><code>earliest</code></bdi>، بشرط أن البيانات ما زالت محفوظة.</p></details>
+<details class="qa"><summary>10. مستهلكان بنفس <bdi dir="ltr">group_id</bdi>، هل يقرآن نفس الرسائل؟</summary><p>يتقاسمان الأقسام بدل أن يأخذ كل واحد نسخة كاملة. إذا كان هناك ثلاثة أقسام فقد يملك أحدهما قسمين والآخر قسمًا. مجموعتان مختلفتان تستطيعان قراءة السجلات نفسها مستقلتين.</p></details>
+<details class="qa"><summary>11. ما الفرق بين <bdi dir="ltr">offset</bdi> و<bdi dir="ltr">event_id</bdi>؟</summary><p>يعين <bdi dir="ltr">Kafka</bdi> الـ <bdi dir="ltr">offset</bdi> داخل القسم. أما <bdi dir="ltr">event_id</bdi> فيولّده برنامجنا داخل القاموس، ويمكن أن يبدأ من 1 مرة أخرى عند إعادة المنتج. ليسا بديلين لبعضهما.</p></details>
+<details class="qa"><summary>12. ماذا يفعل <bdi dir="ltr">auto-commit</bdi>؟ وهل يثبت نجاح <bdi dir="ltr">CSV</bdi>؟</summary><p>يحفظ نقاط تقدم المجموعة دوريًا. لا يتحقق بنفسه من صحة تحليلنا أو نجاح أثر خارجي في كل الظروف. ملف <bdi dir="ltr">CSV</bdi> وحفظ نقطة القراءة ليسا عملية واحدة، ولذلك لا نضمن المعالجة مرة واحدة فقط.</p></details>
+
+<h3>المجموعة الرابعة: المنتج والأقسام</h3>
+<details class="qa"><summary>13. ما الذي تؤكده <bdi dir="ltr">acks="all"</bdi>؟</summary><p>تأكيد كتابة الرسالة لدى القائد والنسخ المتزامنة المطلوبة وفق إعدادات البروكر، لا تأكيد استهلاكها. وفي مختبرنا يوجد بروكر واحد وعامل تكرار 1، فلا توجد نسخة أخرى تحمينا من خسارة قرصه.</p></details>
+<details class="qa"><summary>14. هل طباعة <bdi dir="ltr">Sent</bdi> تعني أن الحدث وصل؟</summary><p>ليس وحدها. <bdi dir="ltr"><code>send</code></bdi> يعيد <bdi dir="ltr">Future</bdi> ويستخدم إرسالًا غير متزامن. يمكن انتظار <bdi dir="ltr"><code>future.get(timeout=10)</code></bdi> للتحقق من النتيجة. أما <bdi dir="ltr"><code>flush()</code></bdi> فينتظر اكتمال الإرسالات السابقة، وليس بديلًا عن فحص أخطاء كل نتيجة.</p></details>
+<details class="qa"><summary>15. هل ثلاثة <bdi dir="ltr">partitions</bdi> تعني ثلاثة <bdi dir="ltr">brokers</bdi>؟</summary><p>لا. الأقسام أجزاء من سجل الموضوع، ويمكن أن توجد كلها على بروكر واحد كما عندنا. تتيح تقسيم العمل لكنها لا تنشئ خوادم أو نسخًا جديدة.</p></details>
+<details class="qa"><summary>16. هل الرسائل مرتبة دائمًا؟ ولماذا قد أستخدم <bdi dir="ltr">key</bdi>؟</summary><p>الترتيب داخل القسم، وليس بين كل الأقسام. مفتاح ثابت مثل هوية الحساس يمكن أن يوجه أحداثه إلى القسم نفسه ما دامت سياسة التوزيع وعدد الأقسام ثابتين. الكود الحالي لا يرسل مفتاحًا، ولا يضمن ترتيبًا عامًا لكل الحساسات.</p></details>
+
+<h3>المجموعة الخامسة: التعديلات التي نفذناها</h3>
+<details class="qa"><summary>17. كيف عدّلت المنتج لإرسال 100 حدث؟</summary><p>في الإضافة عرّفنا <bdi dir="ltr"><code>EVENT_COUNT = 100</code></bdi> واستخدمنا <bdi dir="ltr"><code>range(1, EVENT_COUNT + 1)</code></bdi>. يرسل حدثًا كل دورة. أضفنا المبنى باختيار عشوائي من ثلاثة أسماء. لا نحتاج إعدادًا خاصًا في البروكر كي نغيّر عدد دورات الحلقة.</p></details>
+<details class="qa"><summary>18. لماذا المتوسط قد يشمل <bdi dir="ltr">Library</bdi> والملف يحفظ <bdi dir="ltr">Science</bdi> فقط؟</summary><p>لأننا نجمع الحرارة ونزيد العدد قبل شرط الترشيح، ثم نتجاوز الطباعة والكتابة للمباني الأخرى. لو طلب متوسط المبنى فقط، ننقل المرشح قبل تحديث المجموع والعدد.</p></details>
+<details class="qa"><summary>19. لماذا اختفى <bdi dir="ltr">CSV</bdi> القديم؟ وكيف أصدر كل الأحداث مرة أخرى؟</summary><p>الفتح بوضع <bdi dir="ltr"><code>"w"</code></bdi> يستبدل المحتوى. نستخدم اسم ملف جديدًا لحفظ السابق، ومجموعة جديدة لإعادة قراءة البيانات المحفوظة. تغيير اسم الملف وحده لا يعيد نقاط المجموعة إلى البداية.</p></details>
+<details class="qa"><summary>20. ما المطلوب من الأستاذ وما إضافتك الشخصية؟</summary><p>الأستاذ قدّم المنتج والمستهلك الأساسيين، ثم طلب تجارب 100 حدث والمتوسط والمجموعات والأقسام والمبنى، وجعل <bdi dir="ltr">CSV</bdi> اختياريًا. فصلنا الحلول في ملفات لتبقى بسيطة. النسخة <bdi dir="ltr"><code>consumer_extended_csv.py</code></bdi> إضافة اختيارية تجمع المراقبة والحفظ بطلب منك، وليست اسم ملف فرضه الأستاذ.</p></details>
+</details>
+
+<details class="chapter" id="run">
+<summary><span class="number">12</span> كيف أختار الملفات وأشغّل التجربة؟<small>اختر مستهلكًا واحدًا ومنتجًا مناسبًا، وليس كل الملفات.</small></summary>
+<div class="table-wrap"><table><thead><tr><th>الهدف</th><th>المستهلك</th><th>المنتج</th></tr></thead><tbody>
+<tr><td>مثال الأستاذ</td><td><bdi dir="ltr"><code>consumer.py</code></bdi></td><td><bdi dir="ltr"><code>producer.py</code></bdi></td></tr>
+<tr><td>متوسط وترشيح وتنبيهات</td><td><bdi dir="ltr"><code>consumer_extended.py</code></bdi></td><td><bdi dir="ltr"><code>producer_extended.py</code></bdi></td></tr>
+<tr><td>حفظ كل المباني فقط</td><td><bdi dir="ltr"><code>consumer_csv.py</code></bdi></td><td><bdi dir="ltr"><code>producer_extended.py</code></bdi></td></tr>
+<tr><td>متوسط وترشيح وتنبيهات وحفظ</td><td><bdi dir="ltr"><code>consumer_extended_csv.py</code></bdi></td><td><bdi dir="ltr"><code>producer_extended.py</code></bdi></td></tr>
+</tbody></table></div>
+<p class="tiny muted">الأوامر التالية تخص جهازك الحالي، حيث بيئة <bdi dir="ltr">Python 3.11</bdi> موجودة على <bdi dir="ltr">E:</bdi>. نفذها في <bdi dir="ltr">PowerShell</bdi>.</p>
+<ol>
+<li>انتقل إلى مجلد المشروع وشغّل البروكر.
+<pre dir="ltr"><code>cd D:\projects\bigData\big-data-uni\TP05
+docker compose up -d
+docker compose logs --tail=50 kafka</code></pre>
+انتظر ظهور <bdi dir="ltr"><code>Kafka Server started</code></bdi>، نحو 10 إلى 30 ثانية عادة.</li>
+<li>أنشئ موضوع النسخة الإضافية إن لم يوجد.
+<pre dir="ltr"><code>docker exec tp05-kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --if-not-exists --topic campus-sensors-extended --partitions 3 --replication-factor 1</code></pre></li>
+<li>شغّل المستهلك المجمع في الطرفية الأولى.
+<pre dir="ltr"><code>&amp; E:\TP05-runtime\venv\Scripts\python.exe consumer_extended_csv.py</code></pre></li>
+<li>افتح طرفية ثانية داخل <bdi dir="ltr">TP05</bdi> وشغّل المنتج.
+<pre dir="ltr"><code>&amp; E:\TP05-runtime\venv\Scripts\python.exe producer_extended.py</code></pre>
+يرسل 100 حدث بفاصل ثانية، نحو 101 ثانية مع بدء العميل.</li>
+<li>أوقف المستهلك باستخدام <bdi dir="ltr">Ctrl+C</bdi>. افحص <bdi dir="ltr"><code>sensor_events_extended.csv</code></bdi> وقارن القراءات المعروضة بصفوف الملف.</li>
+</ol>
+<p>البدء بالمستهلك ثم المنتج يسهل رؤية الوصول المباشر. ومع مجموعة جديدة و<bdi dir="ltr"><code>earliest</code></bdi> يمكن للمستهلك أيضًا قراءة ما أُرسل قبل تشغيله ما دام محفوظًا. لذلك ترتيب التشغيل ليس شرطًا صارمًا في كل الحالات.</p>
+<h3>إذا طلب الأستاذ شرح <bdi dir="ltr">Docker</bdi></h3>
+<div class="table-wrap"><table><thead><tr><th>السطر أو المصطلح</th><th>الشرح المختصر</th></tr></thead><tbody>
+<tr><td><bdi dir="ltr"><code>apache/kafka:3.9.1</code></bdi></td><td>صورة الخادم الرسمية بالإصدار المحدد في الورقة. مكتبة <bdi dir="ltr">Python</bdi> عميل وليست هذا الخادم.</td></tr>
+<tr><td><bdi dir="ltr">KRaft</bdi></td><td>إدارة بيانات العنقود الوصفية باستخدام متحكمات <bdi dir="ltr">Kafka</bdi> دون خدمة <bdi dir="ltr">ZooKeeper</bdi> منفصلة. العقدة الواحدة تؤدي دوري البروكر والمتحكم في مختبرنا.</td></tr>
+<tr><td><bdi dir="ltr"><code>KAFKA_LOG_DIRS</code></bdi> ووحدة التخزين</td><td>يوجه السجلات إلى مسار مربوط بوحدة تخزين دائمة. هذا يبقي البيانات عند إعادة إنشاء الحاوية مع نفس الوحدة.</td></tr>
+<tr><td><bdi dir="ltr"><code>--partitions 3</code></bdi></td><td>ينشئ ثلاثة أقسام للموضوع، لا ثلاثة خوادم.</td></tr>
+<tr><td><bdi dir="ltr"><code>--replication-factor 1</code></bdi></td><td>نسخة واحدة من كل قسم. لا يمكن الحصول على ثلاث نسخ موزعة على ثلاث عقد إذا لم نشغّل إلا بروكرًا واحدًا.</td></tr>
+</tbody></table></div>
+<p class="note warning"><bdi dir="ltr"><code>docker compose down</code></bdi> يوقف الخدمات دون حذف الوحدة المسماة عادة. إضافة <bdi dir="ltr"><code>-v</code></bdi> تحذف وحدة بيانات هذا المشروع، بما فيها السجلات ونقاط المجموعات المخزنة فيها. ليست طريقة عادية لإعادة القراءة.</p>
+</details>
+
+<details class="chapter" id="review">
+<summary><span class="number">13</span> بطاقة مراجعة أخيرة ومراجع<small>اشرح هذه الفروق من ذاكرتك قبل المناقشة.</small></summary>
+<ol><li>إعدادات <bdi dir="ltr">KafkaConsumer</bdi> ليست حقول بيانات الحساس.</li><li><bdi dir="ltr">serializer</bdi> يجهّز الإرسال، و<bdi dir="ltr">deserializer</bdi> يعيد قيمة الاستقبال إلى شكل نستخدمه.</li><li><bdi dir="ltr">acks</bdi> لتأكيد الكتابة، و<bdi dir="ltr">commit</bdi> لحفظ تقدم المجموعة. ليستا العملية نفسها.</li><li>نفس المجموعة تقسم العمل؛ مجموعة أخرى تقرأ مستقلة؛ <bdi dir="ltr">earliest</bdi> لا يلغي نقطة صالحة.</li><li>المتوسط عندنا لكل المستلم في التشغيل الحالي؛ الملف المجمع يحفظ ما يمر من المرشح فقط.</li></ol>
+<h3>راجع المصدر عند الشك</h3>
+<ul>
+<li><a href="https://kafka-python.readthedocs.io/en/2.0.2/apidoc/KafkaConsumer.html" target="_blank" rel="noopener noreferrer"><bdi dir="ltr">KafkaConsumer API / kafka-python 2.0.2</bdi></a></li>
+<li><a href="https://kafka-python.readthedocs.io/en/2.0.2/apidoc/KafkaProducer.html" target="_blank" rel="noopener noreferrer"><bdi dir="ltr">KafkaProducer API / kafka-python 2.0.2</bdi></a></li>
+<li><a href="https://kafka.apache.org/39/documentation/" target="_blank" rel="noopener noreferrer"><bdi dir="ltr">Apache Kafka 3.9 documentation</bdi></a></li>
+<li><a href="https://docs.python.org/3.11/library/csv.html" target="_blank" rel="noopener noreferrer"><bdi dir="ltr">Python 3.11 / csv</bdi></a></li>
+</ul>
+<p class="tiny muted">تمت مطابقة الكتل مع ملفات <bdi dir="ltr">TP05</bdi> الحالية، والتحقق من القيم الافتراضية المذكورة عبر المكتبة المثبتة <bdi dir="ltr">2.0.2</bdi>. الأمثلة المعلّمة بأنها إضافية ليست ادعاءً بأنها موجودة في ملفات الأستاذ. العميل قديم وله مشكلات أمنية معروفة؛ استخدمه لهذا المختبر المحلي فقط، ولا تعتبر هذا إعداد إنتاج.</p>
+</details>
+
+<div class="bottom"><p><strong>الخطوة التالية:</strong> افتح قسم المستهلك، واقرأ كتلة الإنشاء. أغلق الشرح وفسّر كل وسيط بصوتك خلال دقيقتين.</p><a href="#consumer">العودة إلى <bdi dir="ltr">KafkaConsumer</bdi></a></div>
+<footer>دليل عربي مستقل يعمل دون اتصال. لا يحمّل خطوطًا أو مكتبات خارجية، ولا يشغّل كود <bdi dir="ltr">Python</bdi> أو يتصل ببروكر <bdi dir="ltr">Kafka</bdi>. روابط المراجع فقط تحتاج الإنترنت.</footer>
+</main>
+<script>
+(function(){
+  const root=document.documentElement;
+  const theme=document.getElementById('theme');
+  function setTheme(dark){root.dataset.theme=dark?'dark':'light';theme.textContent=dark?'تفعيل الوضع الفاتح':'تفعيل الوضع الداكن';theme.setAttribute('aria-pressed',String(dark));}
+  let saved=null;try{saved=localStorage.getItem('tp05-guide-theme');}catch(e){}
+  const preferDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(saved?saved==='dark':preferDark);
+  theme.addEventListener('click',function(){const dark=root.dataset.theme!=='dark';setTheme(dark);try{localStorage.setItem('tp05-guide-theme',dark?'dark':'light');}catch(e){}});
+  const expand=document.getElementById('expand');
+  expand.addEventListener('click',function(){const items=Array.from(document.querySelectorAll('details'));const open=items.some(function(item){return !item.open;});items.forEach(function(item){item.open=open;});expand.textContent=open?'إغلاق كل الشروحات':'فتح كل الشروحات';});
+  function revealHash(){const id=decodeURIComponent(location.hash.slice(1));if(!id)return;const item=document.getElementById(id);if(item&&item.tagName==='DETAILS')item.open=true;}
+  document.querySelectorAll('a[href^="#"]').forEach(function(link){link.addEventListener('click',function(){const item=document.getElementById(link.getAttribute('href').slice(1));if(item&&item.tagName==='DETAILS')item.open=true;});});
+  window.addEventListener('hashchange',revealHash);revealHash();
+  let beforePrint=[];let themeBeforePrint='light';
+  window.addEventListener('beforeprint',function(){beforePrint=Array.from(document.querySelectorAll('details')).map(function(item){return [item,item.open];});themeBeforePrint=root.dataset.theme;setTheme(false);beforePrint.forEach(function(pair){pair[0].open=true;});});
+  window.addEventListener('afterprint',function(){beforePrint.forEach(function(pair){pair[0].open=pair[1];});setTheme(themeBeforePrint==='dark');});
+  document.getElementById('print').addEventListener('click',function(){window.print();});
+})();
+</script>
+</body>
+</html>

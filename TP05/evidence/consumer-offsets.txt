@@ -1,0 +1,6 @@
+$ docker exec tp05-kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group tp05-campus-monitor
+
+GROUP               TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                             HOST            CLIENT-ID
+tp05-campus-monitor campus-sensors  1          20              20              0               kafka-python-2.0.2-2a197f0e-3b0c-49be-853a-66266d6a7b09 /172.20.0.1     kafka-python-2.0.2
+tp05-campus-monitor campus-sensors  2          18              18              0               kafka-python-2.0.2-2a197f0e-3b0c-49be-853a-66266d6a7b09 /172.20.0.1     kafka-python-2.0.2
+tp05-campus-monitor campus-sensors  0          22              22              0               kafka-python-2.0.2-2a197f0e-3b0c-49be-853a-66266d6a7b09 /172.20.0.1     kafka-python-2.0.2

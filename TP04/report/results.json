@@ -1,0 +1,26 @@
+[
+  {
+    "method": "Pandas Chunking (100,000)",
+    "peak_mb": 187.6484375,
+    "seconds": 605.9303105409999,
+    "status": "OK (constant memory)",
+    "metrics": {
+      "rows": 75000000,
+      "total_amount_sum": 516607678312.78,
+      "unit_price_mean": 1252.4186,
+      "quantity_mean": 5.5001
+    }
+  },
+  {
+    "method": "Dask DataFrame",
+    "peak_mb": 2728.75390625,
+    "seconds": 97.85745228299993,
+    "status": "OK (parallel)",
+    "metrics": {
+      "rows": 75000000,
+      "total_amount_sum": 516607678312.78,
+      "unit_price_mean": 1252.4186,
+      "quantity_mean": 5.5001
+    }
+  }
+]

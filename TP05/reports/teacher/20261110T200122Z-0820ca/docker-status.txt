@@ -1,0 +1,2 @@
+NAME         IMAGE                COMMAND                  SERVICE   CREATED      STATUS         PORTS
+tp05-kafka   apache/kafka:3.9.1   "/__cacert_entrypoinظخ"   kafka     7 days ago   Up 9 seconds   127.0.0.1:9092->9092/tcp, [::1]:9092->9092/tcp

@@ -1,0 +1,1 @@
+{"args": ["docker", "exec", "tp05-kafka", "/opt/kafka/bin/kafka-topics.sh", "--bootstrap-server", "localhost:9092", "--describe", "--topic", "campus-sensors"], "cwd": "D:\\projects\\bigData\\big-data-uni\\TP05"}

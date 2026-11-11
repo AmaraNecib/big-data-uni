@@ -1,0 +1,4 @@
+NAME                 IMAGE            COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+tp04-local-node1-1   tp04-local:1.0   "python /app/node_seâ€¦"   node1     14 minutes ago   Up 14 minutes (healthy)   127.0.0.1:8001->8000/tcp
+tp04-local-node2-1   tp04-local:1.0   "python /app/node_seâ€¦"   node2     14 minutes ago   Up 14 minutes (healthy)   127.0.0.1:8002->8000/tcp
+tp04-local-node3-1   tp04-local:1.0   "python /app/node_seâ€¦"   node3     14 minutes ago   Up 14 minutes (healthy)   127.0.0.1:8003->8000/tcp

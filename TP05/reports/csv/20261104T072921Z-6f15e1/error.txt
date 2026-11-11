@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "D:\projects\bigData\big-data-uni\TP05\automation\runner.py", line 118, in run
+    reader = KafkaConsumer(bootstrap_servers="localhost:9092", group_id=None,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\TP05-runtime\venv\Lib\site-packages\kafka\consumer\group.py", line 356, in __init__
+    self._client = KafkaClient(metrics=self._metrics, **self.config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\TP05-runtime\venv\Lib\site-packages\kafka\client_async.py", line 244, in __init__
+    self.config['api_version'] = self.check_version(timeout=check_timeout)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\TP05-runtime\venv\Lib\site-packages\kafka\client_async.py", line 927, in check_version
+    raise Errors.NoBrokersAvailable()
+kafka.errors.NoBrokersAvailable: NoBrokersAvailable

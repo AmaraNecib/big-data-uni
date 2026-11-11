@@ -1,0 +1,18 @@
+test_all_automation_python_parses (automation.test_report.ReportTests.test_all_automation_python_parses) ... ok
+test_constants_without_running_script (automation.test_report.ReportTests.test_constants_without_running_script) ... ok
+test_empty_chart (automation.test_report.ReportTests.test_empty_chart) ... ok
+test_event_comparison_ignores_dictionary_order (automation.test_report.ReportTests.test_event_comparison_ignores_dictionary_order) ... ok
+test_failed_run_is_not_presented_as_success (automation.test_report.ReportTests.test_failed_run_is_not_presented_as_success) ... ok
+test_html_markdown_and_index (automation.test_report.ReportTests.test_html_markdown_and_index) ... ok
+test_index_preserves_old_runs (automation.test_report.ReportTests.test_index_preserves_old_runs) ... ok
+test_overview_uses_saved_measured_results (automation.test_report.ReportTests.test_overview_uses_saved_measured_results) ... ok
+test_all_report_questions_and_relative_entry_points (automation.test_full_report.FullReportTests.test_all_report_questions_and_relative_entry_points) ... ok
+test_failed_capture_is_rejected_even_with_image (automation.test_full_report.FullReportTests.test_failed_capture_is_rejected_even_with_image) ... ok
+test_failed_report_does_not_claim_screenshots_or_investigations (automation.test_full_report.FullReportTests.test_failed_report_does_not_claim_screenshots_or_investigations) ... ok
+test_missing_capture_is_rejected (automation.test_full_report.FullReportTests.test_missing_capture_is_rejected) ... ok
+test_verification_is_not_disabled_by_optimized_python (automation.test_full_report.FullReportTests.test_verification_is_not_disabled_by_optimized_python) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.193s
+
+OK

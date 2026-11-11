@@ -1,0 +1,3 @@
+﻿Method,Status,Peak RAM (GB),Execution time (s)
+"Pandas Chunking (100,000)",OK (constant memory),0.182,61.09
+Dask DataFrame,OK (parallel),3.001,27.37

@@ -1,0 +1,66 @@
+{
+  "run_id": "20261110T200122Z-397186",
+  "status": "FAILED",
+  "scenarios": {
+    "teacher": {
+      "path": "reports/teacher/20261110T200122Z-0820ca",
+      "result": {
+        "mode": "teacher",
+        "title": "Teacher's original example",
+        "run_id": "20261110T200122Z-0820ca",
+        "started_utc": "2026-11-10T20:01:22.614109+00:00",
+        "status": "FAILED",
+        "producer": "producer.py",
+        "consumer": "consumer.py",
+        "python": "3.11.14",
+        "expected_events": 30,
+        "checks": [],
+        "events": [],
+        "source_sha256": {
+          "producer.py": "446c3781813913f124644d7d565806da828d169237b1a02df07cf4bacdf132b8",
+          "consumer.py": "33c06cdb6dabb5d9862be5d737921d8c802b19ef598e0e8e7c20e1c366a9791a"
+        },
+        "artifacts": [
+          "consumer.txt",
+          "docker-start.txt",
+          "docker-status.txt",
+          "error.txt",
+          "topic-description.txt"
+        ],
+        "automation_scope": "Fresh events only. A unique report group seeks to the topic end positions captured before this run. An 8-second idle timeout lets the consumer finish. Student source files are not edited. CSV is written inside this run folder.",
+        "topic": "campus-sensors",
+        "group_id": "tp05-report-teacher-20261110T200122Z-0820ca",
+        "building": null,
+        "csv_file": null,
+        "interval_seconds": 1,
+        "start_offsets": {
+          "0": 36,
+          "1": 25,
+          "2": 29
+        },
+        "error": "Consumer could not start. See consumer.txt.",
+        "duration_seconds": 18.73,
+        "finished_utc": "2026-11-10T20:01:41.342930+00:00"
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "teacher scenario checks",
+      "passed": false
+    }
+  ],
+  "screenshots": [],
+  "submission": "GitHub upload and submission remain pending",
+  "started_utc": "2026-11-10T20:01:22.346802+00:00",
+  "source_sha256": {
+    "producer.py": "446c3781813913f124644d7d565806da828d169237b1a02df07cf4bacdf132b8",
+    "consumer.py": "33c06cdb6dabb5d9862be5d737921d8c802b19ef598e0e8e7c20e1c366a9791a",
+    "producer_extended.py": "b0e033069e673a3e92f26b7498aa597b549af24e2acdd75a4a72f33fc459670a",
+    "consumer_extended.py": "6f00e67682b11c737a5bf1cf825c927ec5a1bf738436e16a6b37556ed5cdec38",
+    "consumer_extended_csv.py": "38323185b19c7fca3aaee78733fad84e6063aa5ceb04a6dea49fa506fa9a9842",
+    "consumer_csv.py": "6e1f68b540118b71892932bacbcd44e95b1bbba638ebcd45a3c3a20825137c8f"
+  },
+  "error": "teacher scenario failed. See D:\\projects\\bigData\\big-data-uni\\TP05\\reports\\teacher\\20261110T200122Z-0820ca",
+  "finished_utc": "2026-11-10T20:01:41.362115+00:00"
+}
