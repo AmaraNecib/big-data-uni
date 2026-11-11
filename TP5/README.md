@@ -1,14 +1,14 @@
-# TP05: Apache Kafka
+# TP5: Apache Kafka
 
 Start with `producer.py` and `consumer.py`. These are the teacher's original Python scripts. The extra exercises are small variations of those scripts, with ordinary variables and loops.
 
-Run commands from the `TP05` directory. Docker must be running.
+Run commands from the `TP5` directory. Docker must be running.
 
 For an Arabic explanation of the Kafka settings and oral-exam practice, open [Kafka-exam-guide-ar.html](Kafka-exam-guide-ar.html). It works offline and includes light/dark modes.
 
 ## Complete assignment in one run
 
-From PowerShell in `TP05`, run:
+From PowerShell in `TP5`, run:
 
 ```powershell
 python run_all.py
@@ -42,7 +42,7 @@ Investigation consumers use separate Kafka clients polling concurrently in autom
 
 Open [REPORT.html](REPORT.html) for the most recently generated report entry point. [REPORT.md](REPORT.md) is the Markdown version. The previous hand-written report is preserved as `REPORT-history.md`; it is historical, not the source of the new results.
 
-Choose **one** command in PowerShell from the `TP05` directory:
+Choose **one** command in PowerShell from the `TP5` directory:
 
 | Scenario | Command on this computer | Approximate time |
 | --- | --- | --- |
@@ -346,7 +346,7 @@ docker compose down
 
 This stops the service without deleting the volume. Adding `-v` also deletes the stored Kafka data, so do not use it while you still need your messages.
 
-Upload the complete `TP05` folder to GitHub, without virtual environments or credentials. No GitHub push has been made.
+The complete `TP5` folder is uploaded on the `coursework/docker-kafka-labs` branch of https://github.com/AmaraNecib/big-data-uni. Virtual environments, credentials, and the TP02 dataset are excluded. Historical execution logs retain the original `TP05` path; current commands use `TP5`.
 
 ## References
 

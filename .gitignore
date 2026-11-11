@@ -21,9 +21,9 @@ __pycache__/
 /TP04/data/
 
 # Rejected capture attempts may contain unrelated desktop content
-/TP05/submissions/20261110T200245Z-739e5e/screenshots/
-/TP05/reports/teacher/20261110T200246Z-797be2/*.png
-/TP05/reports/teacher/20261110T200122Z-0820ca/*.png
+/TP5/submissions/20261110T200245Z-739e5e/screenshots/
+/TP5/reports/teacher/20261110T200246Z-797be2/*.png
+/TP5/reports/teacher/20261110T200122Z-0820ca/*.png
 
 # os / editor
 .DS_Store
