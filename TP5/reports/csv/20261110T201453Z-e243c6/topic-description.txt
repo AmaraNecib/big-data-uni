@@ -1,0 +1,5 @@
+$ docker exec tp05-kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic campus-sensors-extended
+Topic: campus-sensors-extended	TopicId: sbS33WsmSWmeqfCZsBACaQ	PartitionCount: 3	ReplicationFactor: 1	Configs: segment.bytes=16777216,retention.bytes=67108864
+	Topic: campus-sensors-extended	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: campus-sensors-extended	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: campus-sensors-extended	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 

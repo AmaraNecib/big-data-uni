@@ -1,0 +1,71 @@
+[
+    {
+        "Name": "tp04-local_nodes",
+        "Id": "417ff444efd023a16eee2c6ddde03a46caa73750f83aee239425f9f964f00d13",
+        "Created": "2026-11-04T07:27:40.887355525Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.21.0.0/16",
+                    "Gateway": "172.21.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "4f3d034df47034f3c07d6843fe50b5dd68c73c081eb188ea7f743913e06351ce",
+            "com.docker.compose.network": "nodes",
+            "com.docker.compose.project": "tp04-local",
+            "com.docker.compose.version": "5.1.4"
+        },
+        "Containers": {
+            "6c8175ae945b00ad77aa725aa98829bc50b6f4ab07934e48e64af684f1be79ef": {
+                "Name": "tp04-local-node3-1",
+                "EndpointID": "269ef618e13d75a3b332cde2ab78e3a982736c29b978a3444af425e12a4435b1",
+                "MacAddress": "6a:1b:06:3e:79:06",
+                "IPv4Address": "172.21.0.3/16",
+                "IPv6Address": ""
+            },
+            "cdb874b5e9c68ab972bdb1cbb69f8bc62f48f9d95b0beaed834614e14f402f6f": {
+                "Name": "tp04-local-node2-1",
+                "EndpointID": "9a5b80b43ba0c5272ef822f4cce03dd4484226072fe8946fc96caad328aca4e7",
+                "MacAddress": "36:ac:93:54:41:76",
+                "IPv4Address": "172.21.0.2/16",
+                "IPv6Address": ""
+            },
+            "ed71c466cb5db0a812c326448b68f14580e49cca85608cdcca0f973aae707b9c": {
+                "Name": "tp04-local-node1-1",
+                "EndpointID": "bcdf5bcde9f58e10d22c40beb4e66d4cfebb2a3fb36dd2cb6d5fad4dbe8dcf7a",
+                "MacAddress": "4e:95:14:ec:8d:6e",
+                "IPv4Address": "172.21.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.21.0.0/16": {
+                        "IPsInUse": 6,
+                        "DynamicIPsAvailable": 65530
+                    }
+                }
+            }
+        }
+    }
+]

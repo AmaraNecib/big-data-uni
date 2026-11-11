@@ -1,0 +1,32 @@
+{
+  "mode": "csv",
+  "title": "Combined monitoring and CSV",
+  "run_id": "20261104T072921Z-6f15e1",
+  "started_utc": "2026-11-04T07:29:21.393732+00:00",
+  "status": "FAILED",
+  "producer": "producer_extended.py",
+  "consumer": "consumer_extended_csv.py",
+  "python": "3.11.14",
+  "expected_events": 100,
+  "checks": [],
+  "events": [],
+  "source_sha256": {
+    "producer_extended.py": "b0e033069e673a3e92f26b7498aa597b549af24e2acdd75a4a72f33fc459670a",
+    "consumer_extended_csv.py": "38323185b19c7fca3aaee78733fad84e6063aa5ceb04a6dea49fa506fa9a9842"
+  },
+  "artifacts": [
+    "docker-start.txt",
+    "docker-status.txt",
+    "error.txt",
+    "topic-description.txt"
+  ],
+  "automation_scope": "Fresh events only. A unique report group seeks to the topic end positions captured before this run. An 8-second idle timeout lets the consumer finish. Student source files are not edited. CSV is written inside this run folder.",
+  "topic": "campus-sensors-extended",
+  "group_id": "tp05-report-csv-20261104T072921Z-6f15e1",
+  "building": "Science",
+  "csv_file": "sensor_events_extended.csv",
+  "interval_seconds": 1,
+  "error": "NoBrokersAvailable",
+  "duration_seconds": 35.66,
+  "finished_utc": "2026-11-04T07:29:57.039783+00:00"
+}

@@ -9,6 +9,22 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Local secrets and private keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Large local TP02 datasets, including compressed copies
+/TP2_big_data_files/data/
+/TP04/data/
+
+# Rejected capture attempts may contain unrelated desktop content
+/TP5/submissions/20261110T200245Z-739e5e/screenshots/
+/TP5/reports/teacher/20261110T200246Z-797be2/*.png
+/TP5/reports/teacher/20261110T200122Z-0820ca/*.png
+
 # os / editor
 .DS_Store
 Thumbs.db

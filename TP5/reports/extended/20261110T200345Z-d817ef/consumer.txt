@@ -1,0 +1,53 @@
+Listening to topic: campus-sensors-extended
+sensor-02 | Science | T=23.68°C | RH=77.57% | Average=21.44°C
+sensor-02 | Science | T=22.47°C | RH=30.79% | Average=21.78°C
+sensor-02 | Science | T=36.83°C | RH=82.46% | Average=29.00°C
+ALERT: High temperature detected!
+sensor-03 | Science | T=39.8°C | RH=28.7% | Average=30.35°C
+ALERT: High temperature detected!
+sensor-02 | Science | T=25.24°C | RH=51.4% | Average=30.10°C
+sensor-01 | Science | T=24.21°C | RH=63.66% | Average=29.10°C
+sensor-01 | Science | T=37.94°C | RH=33.89% | Average=29.73°C
+ALERT: High temperature detected!
+sensor-01 | Science | T=30.17°C | RH=36.17% | Average=29.76°C
+sensor-01 | Science | T=29.83°C | RH=39.09% | Average=29.76°C
+sensor-02 | Science | T=19.81°C | RH=82.21% | Average=29.18°C
+sensor-01 | Science | T=21.84°C | RH=83.29% | Average=29.61°C
+sensor-02 | Science | T=19.49°C | RH=47.68% | Average=29.66°C
+sensor-03 | Science | T=41.96°C | RH=65.85% | Average=29.96°C
+ALERT: High temperature detected!
+sensor-02 | Science | T=23.88°C | RH=75.63% | Average=29.73°C
+sensor-01 | Science | T=28.21°C | RH=51.41% | Average=29.67°C
+sensor-04 | Science | T=33.99°C | RH=49.34% | Average=29.83°C
+sensor-02 | Science | T=20.5°C | RH=64.4% | Average=29.52°C
+sensor-04 | Science | T=30.55°C | RH=39.89% | Average=29.66°C
+sensor-01 | Science | T=32.82°C | RH=59.61% | Average=29.53°C
+sensor-01 | Science | T=19.78°C | RH=29.11% | Average=29.27°C
+sensor-01 | Science | T=25.82°C | RH=39.03% | Average=29.18°C
+sensor-03 | Science | T=25.89°C | RH=49.13% | Average=29.32°C
+sensor-02 | Science | T=22.62°C | RH=69.12% | Average=29.16°C
+sensor-03 | Science | T=34.37°C | RH=38.47% | Average=29.28°C
+sensor-01 | Science | T=41.6°C | RH=35.31% | Average=29.69°C
+ALERT: High temperature detected!
+sensor-03 | Science | T=39.74°C | RH=37.18% | Average=30.06°C
+ALERT: High temperature detected!
+sensor-03 | Science | T=32.44°C | RH=41.99% | Average=29.72°C
+sensor-02 | Science | T=19.4°C | RH=66.12% | Average=29.87°C
+sensor-03 | Science | T=39.49°C | RH=73.78% | Average=29.92°C
+ALERT: High temperature detected!
+sensor-04 | Science | T=28.16°C | RH=45.46% | Average=29.73°C
+sensor-03 | Science | T=18.64°C | RH=84.07% | Average=29.55°C
+sensor-03 | Science | T=30.35°C | RH=46.42% | Average=29.58°C
+sensor-02 | Science | T=25.31°C | RH=45.5% | Average=29.75°C
+sensor-03 | Science | T=29.34°C | RH=45.07% | Average=29.74°C
+sensor-02 | Science | T=22.31°C | RH=48.6% | Average=29.65°C
+sensor-03 | Science | T=32.8°C | RH=76.48% | Average=29.70°C
+sensor-04 | Science | T=35.64°C | RH=56.86% | Average=29.50°C
+ALERT: High temperature detected!
+sensor-03 | Science | T=27.52°C | RH=56.45% | Average=29.48°C
+sensor-01 | Science | T=19.12°C | RH=83.07% | Average=29.22°C
+sensor-01 | Science | T=18.15°C | RH=73.22% | Average=29.13°C
+sensor-04 | Science | T=36.11°C | RH=33.53% | Average=29.33°C
+ALERT: High temperature detected!
+Events received: 100
+Average temperature: 29.33

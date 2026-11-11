@@ -1,0 +1,3 @@
+$ docker compose ps
+NAME         IMAGE                COMMAND                  SERVICE   CREATED        STATUS         PORTS
+tp05-kafka   apache/kafka:3.9.1   "/__cacert_entrypoin…"   kafka     14 hours ago   Up 3 minutes   127.0.0.1:9092->9092/tcp, [::1]:9092->9092/tcp

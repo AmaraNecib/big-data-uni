@@ -1,4 +1,4 @@
-# Big Data Analytics – TP01 & TP02
+# Big Data Analytics coursework
 
 **University of Eloued** — Faculty of Exact Sciences — Department of Computer Science
 Second-year Master: IA & Data Science — Module: **Big Data Analytics**
@@ -9,6 +9,11 @@ Web-scraping project: fetch a full book from the **Shamela** library
 to **CSV** with **pandas** (more than 1,000 rows).
 
 ---
+
+## Docker and Kafka labs
+
+- [TP04: Docker deployment](TP04/README.md) includes three connected nodes and a local-dataset analysis service. The 6 GB dataset is excluded from Git; Compose mounts your local copy read-only.
+- [TP5: Apache Kafka](TP5/README.md) contains the teacher scripts, extended exercises, one-command automation, screenshots, and reports. Open [the latest complete English report](TP5/submissions/20261110T201202Z-00a8b4/report.md) to read it on GitHub.
 
 ## Repository structure
 

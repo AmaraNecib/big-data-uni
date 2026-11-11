@@ -1,0 +1,45 @@
+$ python consumer.py
+Listening to topic: campus-sensors
+2026-11-03T20:55:15.428339+00:00 | sensor-03 | T=36.73°C | RH=58.33%
+ALERT: High temperature detected!
+2026-11-03T20:55:16.437087+00:00 | sensor-04 | T=38.3°C | RH=67.92%
+ALERT: High temperature detected!
+2026-11-03T20:55:17.438504+00:00 | sensor-03 | T=33.68°C | RH=71.52%
+2026-11-03T20:55:18.439382+00:00 | sensor-04 | T=22.32°C | RH=45.87%
+2026-11-03T20:55:19.440141+00:00 | sensor-02 | T=34.4°C | RH=78.68%
+2026-11-03T20:55:20.441408+00:00 | sensor-04 | T=36.4°C | RH=31.8%
+ALERT: High temperature detected!
+2026-11-03T20:55:21.442129+00:00 | sensor-03 | T=21.08°C | RH=77.59%
+2026-11-03T20:55:22.442528+00:00 | sensor-04 | T=23.96°C | RH=76.07%
+2026-11-03T20:55:23.443240+00:00 | sensor-04 | T=27.06°C | RH=67.33%
+2026-11-03T20:55:24.444710+00:00 | sensor-01 | T=35.13°C | RH=77.72%
+ALERT: High temperature detected!
+2026-11-03T20:55:25.445507+00:00 | sensor-04 | T=26.31°C | RH=36.29%
+2026-11-03T20:55:26.445995+00:00 | sensor-01 | T=30.58°C | RH=80.86%
+2026-11-03T20:55:27.446574+00:00 | sensor-01 | T=37.81°C | RH=63.08%
+ALERT: High temperature detected!
+2026-11-03T20:55:28.448315+00:00 | sensor-04 | T=19.34°C | RH=56.76%
+2026-11-03T20:55:29.451313+00:00 | sensor-02 | T=28.81°C | RH=65.71%
+2026-11-03T20:55:30.457812+00:00 | sensor-04 | T=35.39°C | RH=40.5%
+ALERT: High temperature detected!
+2026-11-03T20:55:31.461073+00:00 | sensor-04 | T=24.42°C | RH=54.52%
+2026-11-03T20:55:32.470273+00:00 | sensor-04 | T=37.04°C | RH=40.14%
+ALERT: High temperature detected!
+2026-11-03T20:55:33.472545+00:00 | sensor-03 | T=36.07°C | RH=70.33%
+ALERT: High temperature detected!
+2026-11-03T20:55:34.474679+00:00 | sensor-03 | T=40.7°C | RH=50.71%
+ALERT: High temperature detected!
+2026-11-03T20:55:35.477322+00:00 | sensor-02 | T=34.79°C | RH=31.15%
+2026-11-03T20:55:36.495503+00:00 | sensor-02 | T=36.33°C | RH=36.35%
+ALERT: High temperature detected!
+2026-11-03T20:55:37.500342+00:00 | sensor-01 | T=23.01°C | RH=79.07%
+2026-11-03T20:55:38.502264+00:00 | sensor-03 | T=29.13°C | RH=79.22%
+2026-11-03T20:55:39.512507+00:00 | sensor-04 | T=33.22°C | RH=36.59%
+2026-11-03T20:55:40.513856+00:00 | sensor-03 | T=40.81°C | RH=35.58%
+ALERT: High temperature detected!
+2026-11-03T20:55:41.514939+00:00 | sensor-03 | T=21.49°C | RH=45.3%
+2026-11-03T20:55:42.515323+00:00 | sensor-01 | T=38.08°C | RH=25.4%
+ALERT: High temperature detected!
+2026-11-03T20:55:43.515999+00:00 | sensor-02 | T=35.69°C | RH=79.87%
+ALERT: High temperature detected!
+2026-11-03T20:55:44.516593+00:00 | sensor-02 | T=33.91°C | RH=36.76%

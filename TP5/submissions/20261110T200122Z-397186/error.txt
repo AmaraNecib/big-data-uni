@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\projects\bigData\big-data-uni\TP05\run_all.py", line 62, in main
+    raise RuntimeError(f"{mode} scenario failed. See {path.parent}")
+RuntimeError: teacher scenario failed. See D:\projects\bigData\big-data-uni\TP05\reports\teacher\20261110T200122Z-0820ca

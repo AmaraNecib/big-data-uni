@@ -1,0 +1,281 @@
+{
+  "mode": "teacher",
+  "title": "Teacher's original example",
+  "run_id": "20261103T211152Z-e9d2f2",
+  "started_utc": "2026-11-03T21:11:52.344332+00:00",
+  "status": "PASS",
+  "producer": "producer.py",
+  "consumer": "consumer.py",
+  "python": "3.11.14",
+  "expected_events": 30,
+  "checks": [
+    {
+      "name": "Requested event count",
+      "passed": true
+    },
+    {
+      "name": "Kafka records equal producer output",
+      "passed": true
+    },
+    {
+      "name": "Displayed readings match building filter",
+      "passed": true
+    },
+    {
+      "name": "High-temperature alerts match displayed readings",
+      "passed": true
+    },
+    {
+      "name": "Student source files remain unchanged",
+      "passed": true
+    }
+  ],
+  "events": [
+    {
+      "event_id": 1,
+      "sensor_id": "sensor-01",
+      "temperature_c": 30.48,
+      "humidity_pct": 29.82,
+      "timestamp": "2026-11-03T21:12:17.127047+00:00"
+    },
+    {
+      "event_id": 2,
+      "sensor_id": "sensor-02",
+      "temperature_c": 30.38,
+      "humidity_pct": 53.11,
+      "timestamp": "2026-11-03T21:12:18.198358+00:00"
+    },
+    {
+      "event_id": 3,
+      "sensor_id": "sensor-02",
+      "temperature_c": 22.21,
+      "humidity_pct": 50.11,
+      "timestamp": "2026-11-03T21:12:19.263955+00:00"
+    },
+    {
+      "event_id": 4,
+      "sensor_id": "sensor-04",
+      "temperature_c": 28.84,
+      "humidity_pct": 34.9,
+      "timestamp": "2026-11-03T21:12:20.288933+00:00"
+    },
+    {
+      "event_id": 5,
+      "sensor_id": "sensor-03",
+      "temperature_c": 31.37,
+      "humidity_pct": 61.33,
+      "timestamp": "2026-11-03T21:12:21.356533+00:00"
+    },
+    {
+      "event_id": 6,
+      "sensor_id": "sensor-04",
+      "temperature_c": 37.46,
+      "humidity_pct": 40.76,
+      "timestamp": "2026-11-03T21:12:22.395030+00:00"
+    },
+    {
+      "event_id": 7,
+      "sensor_id": "sensor-01",
+      "temperature_c": 26.8,
+      "humidity_pct": 29.52,
+      "timestamp": "2026-11-03T21:12:23.420318+00:00"
+    },
+    {
+      "event_id": 8,
+      "sensor_id": "sensor-02",
+      "temperature_c": 28.88,
+      "humidity_pct": 79.14,
+      "timestamp": "2026-11-03T21:12:24.445581+00:00"
+    },
+    {
+      "event_id": 9,
+      "sensor_id": "sensor-01",
+      "temperature_c": 24.63,
+      "humidity_pct": 74.68,
+      "timestamp": "2026-11-03T21:12:25.458799+00:00"
+    },
+    {
+      "event_id": 10,
+      "sensor_id": "sensor-01",
+      "temperature_c": 39.32,
+      "humidity_pct": 41.99,
+      "timestamp": "2026-11-03T21:12:26.469110+00:00"
+    },
+    {
+      "event_id": 11,
+      "sensor_id": "sensor-02",
+      "temperature_c": 32.62,
+      "humidity_pct": 33.01,
+      "timestamp": "2026-11-03T21:12:27.497123+00:00"
+    },
+    {
+      "event_id": 12,
+      "sensor_id": "sensor-04",
+      "temperature_c": 36.52,
+      "humidity_pct": 48.46,
+      "timestamp": "2026-11-03T21:12:28.519597+00:00"
+    },
+    {
+      "event_id": 13,
+      "sensor_id": "sensor-02",
+      "temperature_c": 38.67,
+      "humidity_pct": 69.86,
+      "timestamp": "2026-11-03T21:12:29.542398+00:00"
+    },
+    {
+      "event_id": 14,
+      "sensor_id": "sensor-03",
+      "temperature_c": 40.5,
+      "humidity_pct": 53.63,
+      "timestamp": "2026-11-03T21:12:30.564874+00:00"
+    },
+    {
+      "event_id": 15,
+      "sensor_id": "sensor-01",
+      "temperature_c": 26.87,
+      "humidity_pct": 46.87,
+      "timestamp": "2026-11-03T21:12:31.573679+00:00"
+    },
+    {
+      "event_id": 16,
+      "sensor_id": "sensor-02",
+      "temperature_c": 38.22,
+      "humidity_pct": 56.29,
+      "timestamp": "2026-11-03T21:12:32.585186+00:00"
+    },
+    {
+      "event_id": 17,
+      "sensor_id": "sensor-02",
+      "temperature_c": 21.95,
+      "humidity_pct": 31.13,
+      "timestamp": "2026-11-03T21:12:33.617141+00:00"
+    },
+    {
+      "event_id": 18,
+      "sensor_id": "sensor-01",
+      "temperature_c": 19.74,
+      "humidity_pct": 76.27,
+      "timestamp": "2026-11-03T21:12:34.635890+00:00"
+    },
+    {
+      "event_id": 19,
+      "sensor_id": "sensor-01",
+      "temperature_c": 34.99,
+      "humidity_pct": 81.48,
+      "timestamp": "2026-11-03T21:12:35.650471+00:00"
+    },
+    {
+      "event_id": 20,
+      "sensor_id": "sensor-02",
+      "temperature_c": 37.6,
+      "humidity_pct": 56.65,
+      "timestamp": "2026-11-03T21:12:36.672842+00:00"
+    },
+    {
+      "event_id": 21,
+      "sensor_id": "sensor-04",
+      "temperature_c": 32.03,
+      "humidity_pct": 27.94,
+      "timestamp": "2026-11-03T21:12:37.694864+00:00"
+    },
+    {
+      "event_id": 22,
+      "sensor_id": "sensor-04",
+      "temperature_c": 31.03,
+      "humidity_pct": 69.55,
+      "timestamp": "2026-11-03T21:12:38.707432+00:00"
+    },
+    {
+      "event_id": 23,
+      "sensor_id": "sensor-03",
+      "temperature_c": 18.2,
+      "humidity_pct": 69.31,
+      "timestamp": "2026-11-03T21:12:39.708787+00:00"
+    },
+    {
+      "event_id": 24,
+      "sensor_id": "sensor-03",
+      "temperature_c": 38.69,
+      "humidity_pct": 51.52,
+      "timestamp": "2026-11-03T21:12:40.716877+00:00"
+    },
+    {
+      "event_id": 25,
+      "sensor_id": "sensor-04",
+      "temperature_c": 24.7,
+      "humidity_pct": 36.6,
+      "timestamp": "2026-11-03T21:12:41.746179+00:00"
+    },
+    {
+      "event_id": 26,
+      "sensor_id": "sensor-03",
+      "temperature_c": 24.15,
+      "humidity_pct": 56.27,
+      "timestamp": "2026-11-03T21:12:42.754023+00:00"
+    },
+    {
+      "event_id": 27,
+      "sensor_id": "sensor-01",
+      "temperature_c": 23.85,
+      "humidity_pct": 53.95,
+      "timestamp": "2026-11-03T21:12:43.804071+00:00"
+    },
+    {
+      "event_id": 28,
+      "sensor_id": "sensor-02",
+      "temperature_c": 19.36,
+      "humidity_pct": 30.6,
+      "timestamp": "2026-11-03T21:12:44.832656+00:00"
+    },
+    {
+      "event_id": 29,
+      "sensor_id": "sensor-01",
+      "temperature_c": 39.27,
+      "humidity_pct": 63.45,
+      "timestamp": "2026-11-03T21:12:45.857643+00:00"
+    },
+    {
+      "event_id": 30,
+      "sensor_id": "sensor-02",
+      "temperature_c": 21.89,
+      "humidity_pct": 80.88,
+      "timestamp": "2026-11-03T21:12:46.867432+00:00"
+    }
+  ],
+  "source_sha256": {
+    "producer.py": "446c3781813913f124644d7d565806da828d169237b1a02df07cf4bacdf132b8",
+    "consumer.py": "33c06cdb6dabb5d9862be5d737921d8c802b19ef598e0e8e7c20e1c366a9791a"
+  },
+  "artifacts": [
+    "consumer-offsets.txt",
+    "consumer-ready.txt",
+    "consumer.txt",
+    "docker-start.txt",
+    "docker-status.txt",
+    "producer.txt",
+    "topic-description.txt"
+  ],
+  "automation_scope": "Fresh events only. A unique report group seeks to the topic end positions captured before this run. An 8-second idle timeout lets the consumer finish. Student source files are not edited. CSV is written inside this run folder.",
+  "topic": "campus-sensors",
+  "group_id": "tp05-report-teacher-20261103T211152Z-e9d2f2",
+  "building": null,
+  "csv_file": null,
+  "interval_seconds": 1,
+  "start_offsets": {
+    "0": 22,
+    "1": 20,
+    "2": 18
+  },
+  "end_offsets": {
+    "0": 36,
+    "1": 25,
+    "2": 29
+  },
+  "produced": 30,
+  "verified_in_kafka": 30,
+  "displayed": 30,
+  "alerts": 9,
+  "average_temperature_c": 30.04,
+  "duration_seconds": 70.86,
+  "finished_utc": "2026-11-03T21:13:03.203983+00:00"
+}

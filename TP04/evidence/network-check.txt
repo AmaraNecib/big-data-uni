@@ -1,0 +1,36 @@
+$ docker compose up -d --no-build --wait --wait-timeout 90
+ Network tp04-local_nodes Creating 
+ Network tp04-local_nodes Created 
+ Container tp04-local-node2-1 Creating 
+ Container tp04-local-node1-1 Creating 
+ Container tp04-local-node3-1 Creating 
+ Container tp04-local-node1-1 Created 
+ Container tp04-local-node2-1 Created 
+ Container tp04-local-node3-1 Created 
+ Container tp04-local-node2-1 Starting 
+ Container tp04-local-node3-1 Starting 
+ Container tp04-local-node1-1 Starting 
+ Container tp04-local-node2-1 Started 
+ Container tp04-local-node3-1 Started 
+ Container tp04-local-node1-1 Started 
+ Container tp04-local-node3-1 Waiting 
+ Container tp04-local-node1-1 Waiting 
+ Container tp04-local-node2-1 Waiting 
+ Container tp04-local-node3-1 Healthy 
+ Container tp04-local-node2-1 Healthy 
+ Container tp04-local-node1-1 Healthy 
+$ docker compose ps
+NAME                 IMAGE            COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+tp04-local-node1-1   tp04-local:1.0   "python /app/node_se…"   node1     31 seconds ago   Up 27 seconds (healthy)   127.0.0.1:8001->8000/tcp
+tp04-local-node2-1   tp04-local:1.0   "python /app/node_se…"   node2     31 seconds ago   Up 28 seconds (healthy)   127.0.0.1:8002->8000/tcp
+tp04-local-node3-1   tp04-local:1.0   "python /app/node_se…"   node3     31 seconds ago   Up 27 seconds (healthy)   127.0.0.1:8003->8000/tcp
+$ docker compose exec -T node1 python /app/check_connections.py
+PASS: node1 -> node2:8000 | dataset=/app/data/sales_6gb.csv | bytes=6463485112
+PASS: node1 -> node3:8000 | dataset=/app/data/sales_6gb.csv | bytes=6463485112
+$ docker compose exec -T node2 python /app/check_connections.py
+PASS: node2 -> node1:8000 | dataset=/app/data/sales_6gb.csv | bytes=6463485112
+PASS: node2 -> node3:8000 | dataset=/app/data/sales_6gb.csv | bytes=6463485112
+$ docker compose exec -T node3 python /app/check_connections.py
+PASS: node3 -> node1:8000 | dataset=/app/data/sales_6gb.csv | bytes=6463485112
+PASS: node3 -> node2:8000 | dataset=/app/data/sales_6gb.csv | bytes=6463485112
+PASS: all six directed connections succeeded. Nodes are left running.

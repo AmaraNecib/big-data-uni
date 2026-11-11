@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\projects\bigData\big-data-uni\TP05\automation\runner.py", line 153, in run
+    raise RuntimeError("Consumer could not start. See consumer.txt.")
+RuntimeError: Consumer could not start. See consumer.txt.

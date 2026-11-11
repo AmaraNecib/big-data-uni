@@ -1,0 +1,8 @@
+Fresh topic tp05-groups-20261110t201202z-00a8b4: 30 deterministic events across 3 partitions.
+Same group: counts=[10, 20]; assignments=[[2], [0, 1]].
+Different groups: each received 30 events from the same retained topic.
+Restarted committed group: received 0 old events; earliest did not rewind it.
+One partition: counts=[0, 12]; assignments=[[], [0]].
+Three partitions: counts=[20, 4]; assignments=[[0, 1], [2]].
+Old records stayed in partition 0. Broker count and replication factor stayed at 1.
+PASS: group comparison, committed offsets, and partition growth verified.

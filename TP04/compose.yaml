@@ -1,0 +1,64 @@
+name: tp04-local
+
+x-node: &node
+  image: tp04-local:1.0
+  build: .
+  volumes:
+    - type: bind
+      source: ${TP04_DATA_DIR:-../TP2_big_data_files/data}
+      target: /app/data
+      read_only: true
+      bind:
+        create_host_path: false
+  networks:
+    - nodes
+  restart: "no"
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3).read()"]
+    interval: 5s
+    timeout: 4s
+    retries: 12
+    start_period: 5s
+
+services:
+  node1:
+    <<: *node
+    environment:
+      NODE_NAME: node1
+    ports:
+      - "127.0.0.1:8001:8000"
+
+  node2:
+    <<: *node
+    environment:
+      NODE_NAME: node2
+    ports:
+      - "127.0.0.1:8002:8000"
+
+  node3:
+    <<: *node
+    environment:
+      NODE_NAME: node3
+    ports:
+      - "127.0.0.1:8003:8000"
+
+  data-analysis:
+    image: tp04-local:1.0
+    build: .
+    profiles: ["analysis"]
+    command: ["python", "/app/tp02.py", "--data", "/app/data/sales_6gb.csv", "--report", "/app/report", "--skip-oom"]
+    volumes:
+      - type: bind
+        source: ${TP04_DATA_DIR:-../TP2_big_data_files/data}
+        target: /app/data
+        read_only: true
+        bind:
+          create_host_path: false
+      - ./report:/app/report
+    networks:
+      - nodes
+    restart: "no"
+
+networks:
+  nodes:
+    driver: bridge

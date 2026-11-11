@@ -1,0 +1,14 @@
+# Reuse the published application environment. Transfer compressed data at build time.
+FROM amaranecib/sales-bigdata-tp04:1.0
+
+COPY --chown=appuser:appuser tp02.py /app/tp02.py
+USER root
+RUN --mount=type=bind,source=data/sales_6gb.csv.gz,target=/tmp/sales_6gb.csv.gz \
+    mkdir -p /app/data \
+    && gzip -dc /tmp/sales_6gb.csv.gz > /app/data/sales_6gb.csv \
+    && test "$(wc -c < /app/data/sales_6gb.csv)" = "6463485112" \
+    && chown appuser:appuser /app/data/sales_6gb.csv
+
+USER appuser
+ENTRYPOINT ["python", "/app/tp02.py"]
+CMD ["--data", "/app/data/sales_6gb.csv", "--report", "/app/report", "--skip-oom"]

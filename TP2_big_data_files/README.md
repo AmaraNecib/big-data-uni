@@ -149,3 +149,153 @@ When the process passes the cap, the allocation fails → `MemoryError`.
 (free Git LFS is only 1 GB), so `data/` is in `.gitignore`. Only the scripts,
 the README and the small `report/` files are committed. To get the data, run
 `generate_dataset.py`.
+
+---
+
+# TP04: Docker deployment
+
+## Self-contained dataset image
+
+The `with-data` image packages the Python analysis and
+`data/sales_6gb.csv` together. The CSV is 6,463,485,112 bytes.
+The Dockerfile copies it to `/app/data/sales_6gb.csv`.
+No local dataset mount is needed when using this image.
+
+The earlier published `1.0` tag contains code only. It is not the dataset image.
+The new tag must finish building and pushing before other machines can pull it.
+
+## Docker files
+
+- `Dockerfile` installs dependencies and copies the analysis code and CSV.
+- `.dockerignore` includes only the Dockerfile, requirements, analysis script,
+  and this one CSV. Other datasets and reports stay outside the build context.
+- `compose.yaml` uses `amaranecib/sales-bigdata-tp04:with-data`.
+  Only the report output is mounted from the host.
+- `Dockerfile.dataset` reuses the published `1.0` application environment.
+  Its own ignore file transfers only the compressed CSV and analysis script.
+  A build-time bind mount decompresses the CSV into the final image without
+  retaining an extra compressed-file layer.
+
+`--skip-oom` avoids the Windows-specific full-file memory-limit experiment.
+
+## Task 1: Check Docker
+
+Run PowerShell in this folder with Docker Desktop running:
+
+```powershell
+docker --version
+docker compose version
+docker info
+```
+
+## Task 2: Build, push, and pull
+
+The publisher needs the local CSV to build. Anyone pulling the finished image
+does not need a separate copy. Keep the dataset out of GitHub's normal Git history.
+
+```powershell
+docker build -t amaranecib/sales-bigdata-tp04:with-data .
+docker login -u amaranecib
+docker push amaranecib/sales-bigdata-tp04:with-data
+docker pull amaranecib/sales-bigdata-tp04:with-data
+```
+
+For a smaller build transfer, prepare a gzip copy and use the alternate
+Dockerfile. The final image still contains the original uncompressed CSV:
+
+```powershell
+python -c "import gzip,shutil; src=open('data/sales_6gb.csv','rb'); dst=gzip.open('data/sales_6gb.csv.gz','wb',compresslevel=1); shutil.copyfileobj(src,dst,length=8*1024*1024); dst.close(); src.close()"
+docker build -f Dockerfile.dataset -t amaranecib/sales-bigdata-tp04:with-data .
+```
+
+Verify the embedded file without any host data mount:
+
+```powershell
+docker run --rm --entrypoint python amaranecib/sales-bigdata-tp04:with-data -c "from pathlib import Path; p=Path('/app/data/sales_6gb.csv'); print(p, p.stat().st_size); assert p.stat().st_size == 6463485112"
+```
+
+## Task 3: Three containers on a network
+
+These are temporary networking demonstrations, not distributed analysis workers.
+Each sees the embedded CSV from the same image. Docker shares image layers
+between these containers; it does not need three separate image downloads.
+The batch program does not listen on a port, so these commands do not publish one.
+
+Use an unused network and unused container names. The earlier demo may still
+occupy `tp04-node1` through `tp04-node3`, so these use different names.
+
+```powershell
+docker network create tp04-data-network
+$image = "amaranecib/sales-bigdata-tp04:with-data"
+docker run -d --name tp04-data-node1 --network tp04-data-network --entrypoint python $image -c "import time; print('node1 ready', flush=True); time.sleep(3600)"
+docker run -d --name tp04-data-node2 --network tp04-data-network --entrypoint python $image -c "import time; print('node2 ready', flush=True); time.sleep(3600)"
+docker run -d --name tp04-data-node3 --network tp04-data-network --entrypoint python $image -c "import time; print('node3 ready', flush=True); time.sleep(3600)"
+docker ps
+docker network inspect tp04-data-network
+```
+
+## Task 4: Run with Docker Compose
+
+To use Docker Hub without rebuilding or requiring a local CSV:
+
+```powershell
+docker compose pull
+docker compose up --no-build
+docker compose ps -a
+docker compose down
+```
+
+To follow the PDF's build command on the publisher's machine instead, run
+`docker compose up --build`. Building requires the local CSV.
+Do not add a mount over `/app/data`: it would hide the embedded dataset.
+
+The report appears under `docker-report/`. A successful analysis exits with
+code 0. Existing reports and verification files from the earlier code-only image
+are historical evidence, not proof that the new dataset tag has been pushed.
+
+## Task 5: Report
+
+### What is Docker, and why is it useful in data-science projects?
+
+Docker builds an image with an application and its runtime dependencies, then
+runs that image in an isolated container. For data-science work, this keeps the
+Python environment consistent across machines and makes an analysis easier to
+share and repeat.
+
+### What is the difference between an image and a container?
+
+An image is the built template. A container is a running or stopped instance
+created from that image. Multiple containers can use the same image.
+
+### What do `FROM`, `WORKDIR`, `COPY`, `RUN`, and `CMD` do?
+
+- `FROM` chooses the base image and Python runtime.
+- `WORKDIR` sets the directory for later build and run commands.
+- `COPY` adds files from the build context to the image.
+- `RUN` executes commands during the image build. Here it installs Python packages.
+- `CMD` provides the default arguments when a container starts. The `ENTRYPOINT`
+  in this Dockerfile starts the analysis script.
+
+### What problem does Docker Compose solve?
+
+Compose describes services, volumes, networks, and settings in one YAML file.
+It can build and start the project with one command and stop it with another.
+
+### How does `docker run` compare with `docker compose up`?
+
+`docker run` starts one container using options on the command line.
+`docker compose up` reads `compose.yaml` and starts the services declared there.
+
+### How could this Compose project add a database?
+
+Add a database service such as PostgreSQL with a persistent named volume. Put it
+on the same Compose network as the analysis service, then connect using the
+database service name as the host. Keep passwords in environment variables or a
+local `.env` file, not in the Docker image.
+
+## Screenshots
+
+Save screenshots of the Docker version, image push and pull, three running
+containers, and the Compose run under `screenshots/` before submitting this
+folder to GitHub.
+
